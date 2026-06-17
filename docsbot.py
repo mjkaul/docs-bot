@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-DocsBot — knowledge-graph-grounded chat agent for Kubernetes documentation.
+DocsBot — knowledge-graph-grounded chat agent for Ray documentation.
 
 Usage:
     python docsbot.py                              # interactive REPL
-    python docsbot.py "Which tasks mention pod?"   # single question, then exit
+    python docsbot.py "Which tasks mention actor?" # single question, then exit
 
 How it works:
     1. graph/docs_graph.ttl is loaded into an in-memory rdflib Graph (~3 000 triples).
@@ -68,10 +68,10 @@ TOOLS: list[dict] = [
     {
         "name": "find_tasks_for_term",
         "description": (
-            "Find all task (how-to) topics in the Kubernetes documentation that "
+            "Find all task (how-to) topics in the Ray documentation that "
             "mention a specific glossary term via a knowledge-graph edge.  "
-            "Use this for questions like 'Which how-to pages cover StatefulSets?' "
-            "or 'What tasks mention persistent volumes?'"
+            "Use this for questions like 'Which how-to pages cover Actors?' "
+            "or 'What tasks mention deployments?'"
         ),
         "input_schema": {
             "type": "object",
@@ -80,8 +80,8 @@ TOOLS: list[dict] = [
                     "type": "string",
                     "description": (
                         "Glossary term slug — lowercase, hyphen-separated.  "
-                        "Examples: 'statefulset', 'pod', 'persistent-volume', "
-                        "'node', 'deployment', 'service'."
+                        "Examples: 'actor', 'deployment', 'remote-function', "
+                        "'dataset', 'trial', 'trainer'."
                     ),
                 }
             },
@@ -102,7 +102,7 @@ TOOLS: list[dict] = [
             "properties": {
                 "term_id": {
                     "type": "string",
-                    "description": "Glossary term slug, e.g. 'pod', 'node', 'deployment'.",
+                    "description": "Glossary term slug, e.g. 'actor', 'deployment', 'dataset'.",
                 },
                 "include_titles": {
                     "type": "boolean",
@@ -120,9 +120,9 @@ TOOLS: list[dict] = [
         "name": "topics_by_subject",
         "description": (
             "List all documentation topics tagged with a taxonomy subject area such as "
-            "'storage', 'networking', 'security', or 'workload'.  Optionally filter to "
-            "a specific topic type (e.g. only how-to tasks).  Use for questions like "
-            "'Show me all storage-related concept pages' or 'What tasks cover networking?'"
+            "'core', 'serve', 'train', 'tune', 'data', 'observability', or 'cluster'.  "
+            "Optionally filter to a specific topic type (e.g. only how-to tasks).  "
+            "Use for questions like 'Show me all Ray Train concept pages' or 'What tasks cover Ray Serve?'"
         ),
         "input_schema": {
             "type": "object",
@@ -130,9 +130,9 @@ TOOLS: list[dict] = [
                 "subject_id": {
                     "type": "string",
                     "description": (
-                        "Taxonomy subject slug — lowercase, hyphen-separated.  "
-                        "Examples: 'storage', 'networking', 'security', 'workload', "
-                        "'scheduling', 'cluster-administration', 'configuration'."
+                        "Taxonomy subject slug — lowercase.  "
+                        "Valid values: 'core', 'serve', 'train', 'tune', 'data', "
+                        "'observability', 'cluster'."
                     ),
                 },
                 "topic_type": {
@@ -337,7 +337,7 @@ def main() -> None:
         return
 
     # --- interactive REPL --------------------------------------------------
-    print("DocsBot ready. Ask a question about the Kubernetes docs, or type 'quit'.\n")
+    print("DocsBot ready. Ask a question about the Ray docs, or type 'quit'.\n")
     while True:
         try:
             question = input("Q: ").strip()
