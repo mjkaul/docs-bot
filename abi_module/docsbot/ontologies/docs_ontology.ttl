@@ -1,0 +1,88 @@
+@prefix : <http://docsbot.local/ontology/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix cco: <https://www.commoncoreontologies.org/> .
+@prefix bfo: <http://purl.obolibrary.org/obo/> .
+
+<http://docsbot.local/ontology/> a owl:Ontology ;
+    rdfs:label "docs_bot Documentation Ontology" ;
+    rdfs:comment """Application-level ontology for documentation topics, aligned with
+    BFO (ISO/IEC 21838-2) via Common Core Ontologies so it composes with the Naas ABI
+    ontology stack. Topics are information content entities; subjects form a SKOS
+    concept scheme (the taxonomy facet)."""@en ;
+    dcterms:license "Code: MIT. Instance content derives from Kubernetes docs, CC-BY 4.0." .
+
+#################################################################
+# Classes
+#################################################################
+
+:DocumentationTopic a owl:Class ;
+    rdfs:label "Documentation Topic" ;
+    rdfs:subClassOf cco:ont00000958 ;  # cco:InformationContentEntity (BFO: generically dependent continuant)
+    rdfs:comment "A discrete, componentized unit of documentation content." .
+
+:ConceptTopic a owl:Class ; rdfs:subClassOf :DocumentationTopic ;
+    rdfs:label "Concept Topic" ;
+    rdfs:comment "Explains what something is and why it matters (DITA concept)." .
+
+:TaskTopic a owl:Class ; rdfs:subClassOf :DocumentationTopic ;
+    rdfs:label "Task Topic" ;
+    rdfs:comment "Step-by-step procedure (DITA task)." .
+
+:ReferenceTopic a owl:Class ; rdfs:subClassOf :DocumentationTopic ;
+    rdfs:label "Reference Topic" ;
+    rdfs:comment "Lookup material; specifications and APIs (DITA reference)." .
+
+:GlossaryEntry a owl:Class ; rdfs:subClassOf :DocumentationTopic ;
+    rdfs:label "Glossary Entry" ;
+    rdfs:comment "Topic defining exactly one term in the controlled vocabulary." .
+
+:SectionTopic a owl:Class ; rdfs:subClassOf :DocumentationTopic ;
+    rdfs:label "Section Topic" ;
+    rdfs:comment "Container/landing topic grouping child topics." .
+
+:Subject a owl:Class ; rdfs:subClassOf skos:Concept ;
+    rdfs:label "Subject" ;
+    rdfs:comment "Taxonomy subject used to classify topics." .
+
+:Term a owl:Class ; rdfs:subClassOf skos:Concept ;
+    rdfs:label "Term" ;
+    rdfs:comment "A term in the product's controlled vocabulary, defined by a GlossaryEntry." .
+
+#################################################################
+# Object properties
+#################################################################
+
+:mentions a owl:ObjectProperty ;
+    rdfs:domain :DocumentationTopic ; rdfs:range :Term ;
+    rdfs:label "mentions" ;
+    rdfs:comment "Topic body explicitly references this vocabulary term." .
+
+:defines a owl:ObjectProperty ;
+    rdfs:domain :GlossaryEntry ; rdfs:range :Term ;
+    rdfs:label "defines" .
+
+:references a owl:ObjectProperty ;
+    rdfs:domain :DocumentationTopic ; rdfs:range :DocumentationTopic ;
+    rdfs:label "references" ;
+    rdfs:comment "Hyperlink from one topic to another." .
+
+:partOf a owl:ObjectProperty , owl:TransitiveProperty ;
+    rdfs:domain :DocumentationTopic ; rdfs:range :SectionTopic ;
+    rdfs:label "part of" ;
+    rdfs:comment "Topic belongs to a section. Transitive: enables hierarchy inferencing." .
+
+:hasSubject a owl:ObjectProperty ;
+    rdfs:domain :DocumentationTopic ; rdfs:range :Subject ;
+    rdfs:label "has subject" .
+
+#################################################################
+# Datatype properties
+#################################################################
+
+:canonicalPath a owl:DatatypeProperty ; rdfs:domain :DocumentationTopic ;
+    rdfs:label "canonical path" .
+:topicId a owl:DatatypeProperty ; rdfs:domain :DocumentationTopic ;
+    rdfs:label "topic id" .

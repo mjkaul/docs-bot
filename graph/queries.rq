@@ -1,0 +1,31 @@
+# Sample SPARQL queries against graph/docs_graph.ttl
+# Run: python3 scripts/query.py "<query>"   or load into ABI/Oxigraph.
+
+# 1. Which tasks depend on the concept of a StatefulSet?
+#    (tasks mentioning the term, plus what those tasks reference)
+PREFIX docs: <http://docsbot.local/ontology/>
+PREFIX term: <http://docsbot.local/term/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+SELECT ?title ?path WHERE {
+  ?t a docs:TaskTopic ;
+     docs:mentions term:statefulset ;
+     dcterms:title ?title ;
+     docs:canonicalPath ?path .
+}
+
+# 2. Impact analysis: if the Pod concept changes, which topics (by type) mention it?
+# SELECT ?type (COUNT(?t) AS ?n) WHERE {
+#   ?t docs:mentions <http://docsbot.local/term/pod> ; a ?type .
+# } GROUP BY ?type
+
+# 3. Orphan check: topics nothing references (entry points or gaps?)
+# SELECT ?title WHERE {
+#   ?t a docs:ConceptTopic ; dcterms:title ?title .
+#   FILTER NOT EXISTS { ?other docs:references ?t }
+# }
+
+# 4. Subject coverage: how many topics per taxonomy subject?
+# PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+# SELECT ?label (COUNT(?t) AS ?n) WHERE {
+#   ?t docs:hasSubject ?s . ?s skos:prefLabel ?label .
+# } GROUP BY ?label ORDER BY DESC(?n)

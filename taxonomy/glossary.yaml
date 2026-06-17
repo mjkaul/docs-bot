@@ -1,0 +1,245 @@
+# Ray documentation glossary.
+#
+# Used by enrich_metadata.py to detect term mentions in doc bodies via text
+# search (replacing the Hugo glossary_tooltip shortcodes used in the K8s corpus).
+#
+# Each term has:
+#   id:       slug → URI local name (http://docsbot.local/term/<id>)
+#   label:    human-readable display name
+#   subjects: which subject areas this term belongs to
+#   patterns: text strings to search for (case-insensitive, word-boundary)
+#             list longest patterns first to avoid partial-match false positives
+
+terms:
+  # ── Ray Core ───────────────────────────────────────────────────────────────
+
+  - id: actor
+    label: Actor
+    subjects: [core]
+    patterns:
+      - ray actor
+      - actor class
+      - actors
+      - actor
+
+  - id: task
+    label: Task
+    subjects: [core]
+    patterns:
+      - remote function
+      - ray task
+      - ray tasks
+      - tasks
+      - task
+
+  - id: object-store
+    label: Object Store
+    subjects: [core]
+    patterns:
+      - plasma store
+      - object store
+
+  - id: object-ref
+    label: ObjectRef
+    subjects: [core]
+    patterns:
+      - object reference
+      - objectref
+      - object ref
+
+  - id: placement-group
+    label: Placement Group
+    subjects: [core]
+    patterns:
+      - placement groups
+      - placement group
+
+  - id: runtime-env
+    label: Runtime Environment
+    subjects: [core]
+    patterns:
+      - runtime environment
+      - runtime_env
+
+  - id: worker
+    label: Worker
+    subjects: [core]
+    patterns:
+      - worker process
+      - worker node
+      - workers
+      - worker
+
+  - id: head-node
+    label: Head Node
+    subjects: [core]
+    patterns:
+      - head-node
+      - head node
+
+  - id: driver
+    label: Driver
+    subjects: [core]
+    patterns:
+      - driver program
+      - driver script
+      - ray driver
+      - driver
+
+  - id: namespace
+    label: Namespace
+    subjects: [core]
+    patterns:
+      - ray namespace
+      - namespaces
+      - namespace
+
+  - id: compiled-graph
+    label: Compiled Graph
+    subjects: [core]
+    patterns:
+      - compiled graph
+      - compileddag
+
+  # ── Ray Serve ──────────────────────────────────────────────────────────────
+
+  - id: deployment
+    label: Deployment
+    subjects: [serve]
+    patterns:
+      - serve deployment
+      - ray serve deployment
+      - deployments
+      - deployment
+
+  - id: replica
+    label: Replica
+    subjects: [serve]
+    patterns:
+      - replicas
+      - replica
+
+  - id: serve-handle
+    label: DeploymentHandle
+    subjects: [serve]
+    patterns:
+      - deploymenthandle
+      - servehandle
+      - serve handle
+
+  - id: ingress-deployment
+    label: Ingress Deployment
+    subjects: [serve]
+    patterns:
+      - ingress deployment
+      - http ingress
+
+  # ── Ray Train ──────────────────────────────────────────────────────────────
+
+  - id: trainer
+    label: Trainer
+    subjects: [train]
+    patterns:
+      - torchtrainer
+      - tensorflow trainer
+      - xgboosttrainer
+      - lightgbmtrainer
+      - ray trainer
+      - trainer
+
+  - id: checkpoint
+    label: Checkpoint
+    subjects: [train, tune]
+    patterns:
+      - checkpointing
+      - checkpoint
+
+  - id: scaling-config
+    label: ScalingConfig
+    subjects: [train]
+    patterns:
+      - scalingconfig
+      - scaling config
+      - scaling configuration
+
+  - id: training-function
+    label: Training Function
+    subjects: [train]
+    patterns:
+      - training function
+      - train func
+      - train_func
+
+  # ── Ray Tune ───────────────────────────────────────────────────────────────
+
+  - id: trial
+    label: Trial
+    subjects: [tune]
+    patterns:
+      - trials
+      - trial
+
+  - id: search-algorithm
+    label: Search Algorithm
+    subjects: [tune]
+    patterns:
+      - search algorithm
+      - hyperparameter search
+      - searcher
+
+  - id: search-space
+    label: Search Space
+    subjects: [tune]
+    patterns:
+      - search space
+      - hyperparameter space
+
+  - id: trainable
+    label: Trainable
+    subjects: [tune]
+    patterns:
+      - tune function
+      - trainable
+
+  - id: tune-scheduler
+    label: Trial Scheduler
+    subjects: [tune]
+    patterns:
+      - trial scheduler
+      - asha
+      - hyperband
+      - population based training
+      - pbt
+
+  # ── Ray Data ───────────────────────────────────────────────────────────────
+
+  - id: dataset
+    label: Dataset
+    subjects: [data]
+    patterns:
+      - ray dataset
+      - raydataset
+      - ray data dataset
+      - datasets
+      - dataset
+
+  - id: batch-inference
+    label: Batch Inference
+    subjects: [data, serve]
+    patterns:
+      - offline inference
+      - batch prediction
+      - batch inference
+
+  - id: datasource
+    label: Datasource
+    subjects: [data]
+    patterns:
+      - data source
+      - datasource
+
+  - id: datastream
+    label: Datastream
+    subjects: [data]
+    patterns:
+      - datastream

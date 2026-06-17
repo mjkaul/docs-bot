@@ -1,0 +1,32 @@
+# Taxonomy for the Ray documentation corpus (Iantosca step 2).
+# Subjects map to Ray's top-level library sections.
+# enrich_metadata.py derives each topic's subjects from (a) its section path
+# and (b) the subjects of any glossary terms it mentions.
+
+topic_types:
+  concept:
+    description: Explains what something is and why it matters.
+  task:
+    description: Step-by-step procedure to accomplish a goal.
+  reference:
+    description: Lookup material; specifications and APIs.
+  glossary_term:
+    description: Controlled-vocabulary definition of a single term.
+  section:
+    description: Container/landing topic grouping child topics.
+
+subjects:
+  - id: core
+    label: Ray Core
+  - id: serve
+    label: Ray Serve
+  - id: train
+    label: Ray Train
+  - id: tune
+    label: Ray Tune
+  - id: data
+    label: Ray Data
+  - id: observability
+    label: Observability
+  - id: cluster
+    label: Cluster

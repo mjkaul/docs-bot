@@ -1,0 +1,31 @@
+---
+id: ray-core.patterns.too-fine-grained-tasks
+title: 'Anti-pattern: Over-parallelizing with too fine-grained tasks harms speedup'
+topic_type: concept
+description: ''
+subjects:
+- core
+mentions:
+- task
+references: []
+canonical_path: /en/latest/ray-core/patterns/too-fine-grained-tasks
+source: https://github.com/ray-project/ray/blob/master/doc/source/ray-core/patterns/too-fine-grained-tasks.rst
+license: Apache 2.0, The Ray Authors
+---
+
+Anti-pattern: Over-parallelizing with too fine-grained tasks harms speedup
+
+**TLDR:** Avoid over-parallelizing. Parallelizing tasks has higher overhead than using normal functions.
+
+Parallelizing or distributing tasks usually comes with higher overhead than an ordinary function call. Therefore, if you parallelize a function that executes very quickly, the overhead could take longer than the actual function call!
+
+To handle this problem, we should be careful about parallelizing too much. If you have a function or task that’s too small, you can use a technique called **batching** to make your tasks do more meaningful work in a single call.
+
+Code example
+
+**Anti-pattern:**
+
+**Better approach:** Use batching.
+
+As we can see from the example above, over-parallelizing has higher overhead and the program runs slower than the serial version.
+Through batching with a proper batch size, we are able to amortize the overhead and achieve the expected speedup.

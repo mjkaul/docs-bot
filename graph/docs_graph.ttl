@@ -1,0 +1,3620 @@
+@prefix cco: <https://www.commoncoreontologies.org/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix docs: <http://docsbot.local/ontology/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix subject: <http://docsbot.local/subject/> .
+@prefix term: <http://docsbot.local/term/> .
+@prefix topic: <http://docsbot.local/topic/> .
+
+docs: a owl:Ontology ;
+    rdfs:label "docs_bot Documentation Ontology" ;
+    dcterms:license "Code: MIT. Instance content derives from Kubernetes docs, CC-BY 4.0." ;
+    rdfs:comment """Application-level ontology for documentation topics, aligned with
+    BFO (ISO/IEC 21838-2) via Common Core Ontologies so it composes with the Naas ABI
+    ontology stack. Topics are information content entities; subjects form a SKOS
+    concept scheme (the taxonomy facet)."""@en .
+
+docs:ReferenceTopic a owl:Class ;
+    rdfs:label "Reference Topic" ;
+    rdfs:comment "Lookup material; specifications and APIs (DITA reference)." ;
+    rdfs:subClassOf docs:DocumentationTopic .
+
+docs:canonicalPath a owl:DatatypeProperty ;
+    rdfs:label "canonical path" ;
+    rdfs:domain docs:DocumentationTopic .
+
+docs:defines a owl:ObjectProperty ;
+    rdfs:label "defines" ;
+    rdfs:domain docs:GlossaryEntry ;
+    rdfs:range docs:Term .
+
+docs:hasSubject a owl:ObjectProperty ;
+    rdfs:label "has subject" ;
+    rdfs:domain docs:DocumentationTopic ;
+    rdfs:range docs:Subject .
+
+docs:mentions a owl:ObjectProperty ;
+    rdfs:label "mentions" ;
+    rdfs:comment "Topic body explicitly references this vocabulary term." ;
+    rdfs:domain docs:DocumentationTopic ;
+    rdfs:range docs:Term .
+
+docs:partOf a owl:ObjectProperty,
+        owl:TransitiveProperty ;
+    rdfs:label "part of" ;
+    rdfs:comment "Topic belongs to a section. Transitive: enables hierarchy inferencing." ;
+    rdfs:domain docs:DocumentationTopic ;
+    rdfs:range docs:SectionTopic .
+
+docs:references a owl:ObjectProperty ;
+    rdfs:label "references" ;
+    rdfs:comment "Hyperlink from one topic to another." ;
+    rdfs:domain docs:DocumentationTopic ;
+    rdfs:range docs:DocumentationTopic .
+
+docs:topicId a owl:DatatypeProperty ;
+    rdfs:label "topic id" ;
+    rdfs:domain docs:DocumentationTopic .
+
+topic:data.aggregating-data a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/data/aggregating-data" ;
+    docs:hasSubject subject:data ;
+    docs:mentions term:dataset ;
+    docs:topicId "data.aggregating-data" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/data/aggregating-data.rst> ;
+    dcterms:title "Aggregating Data" .
+
+topic:data.batch_inference a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/data/batch_inference" ;
+    docs:hasSubject subject:core,
+        subject:data,
+        subject:serve,
+        subject:train,
+        subject:tune ;
+    docs:mentions term:actor,
+        term:batch-inference,
+        term:checkpoint,
+        term:dataset,
+        term:replica,
+        term:task ;
+    docs:topicId "data.batch_inference" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/data/batch_inference.rst> ;
+    dcterms:title "End-to-end: Offline Batch Inference" .
+
+topic:data.benchmark a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/data/benchmark" ;
+    docs:hasSubject subject:data,
+        subject:serve ;
+    docs:mentions term:batch-inference,
+        term:dataset ;
+    docs:topicId "data.benchmark" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/data/benchmark.md> ;
+    dcterms:title "Ray Data Benchmarks" .
+
+topic:data.comparisons a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/data/comparisons" ;
+    docs:hasSubject subject:core,
+        subject:data,
+        subject:serve ;
+    docs:mentions term:batch-inference,
+        term:dataset,
+        term:worker ;
+    docs:topicId "data.comparisons" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/data/comparisons.rst> ;
+    dcterms:title "Comparing Ray Data to other systems" .
+
+topic:data.contributing.contributing a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/data/contributing/contributing" ;
+    docs:hasSubject subject:data ;
+    docs:topicId "data.contributing.contributing" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/data/contributing/contributing.rst> ;
+    dcterms:title "Contributing to Ray Data" .
+
+topic:data.contributing.contributing-guide a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/data/contributing/contributing-guide" ;
+    docs:hasSubject subject:core,
+        subject:data ;
+    docs:mentions term:task ;
+    docs:topicId "data.contributing.contributing-guide" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/data/contributing/contributing-guide.md> ;
+    dcterms:title "Contributing Guide" .
+
+topic:data.contributing.how-to-write-tests a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/data/contributing/how-to-write-tests" ;
+    docs:hasSubject subject:data ;
+    docs:mentions term:dataset ;
+    docs:topicId "data.contributing.how-to-write-tests" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/data/contributing/how-to-write-tests.md> ;
+    dcterms:title "How to write tests" .
+
+topic:data.custom-datasource-example a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/data/custom-datasource-example" ;
+    docs:hasSubject subject:data ;
+    docs:mentions term:dataset,
+        term:datasource ;
+    docs:topicId "data.custom-datasource-example" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/data/custom-datasource-example.rst> ;
+    dcterms:title "Advanced: Read and Write Custom File Types" .
+
+topic:data.data a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/data/data" ;
+    docs:hasSubject subject:core,
+        subject:data,
+        subject:serve ;
+    docs:mentions term:batch-inference,
+        term:dataset,
+        term:task,
+        term:worker ;
+    docs:topicId "data.data" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/data/data.rst> ;
+    dcterms:title "Ray Data: Scalable Data Processing for AI Workloads" .
+
+topic:data.data-internals a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/data/data-internals" ;
+    docs:hasSubject subject:core,
+        subject:data,
+        subject:serve,
+        subject:tune ;
+    docs:mentions term:actor,
+        term:batch-inference,
+        term:dataset,
+        term:driver,
+        term:object-store,
+        term:placement-group,
+        term:task,
+        term:trial,
+        term:worker ;
+    docs:topicId "data.data-internals" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/data/data-internals.rst> ;
+    dcterms:title "Ray Data Internals" .
+
+topic:data.execution-configurations a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/data/execution-configurations" ;
+    docs:hasSubject subject:core,
+        subject:data,
+        subject:serve,
+        subject:train,
+        subject:tune ;
+    docs:mentions term:actor,
+        term:batch-inference,
+        term:checkpoint,
+        term:dataset,
+        term:task ;
+    docs:topicId "data.execution-configurations" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/data/execution-configurations.rst> ;
+    dcterms:title "Execution Configurations" .
+
+topic:data.how-to-avoid-ooms a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/data/how-to-avoid-ooms" ;
+    docs:hasSubject subject:core,
+        subject:data ;
+    docs:mentions term:actor,
+        term:object-store,
+        term:task,
+        term:worker ;
+    docs:topicId "data.how-to-avoid-ooms" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/data/how-to-avoid-ooms.md> ;
+    dcterms:title "How to avoid out-of-memory errors (OOMs)" .
+
+topic:data.inspecting-data a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/data/inspecting-data" ;
+    docs:hasSubject subject:core,
+        subject:data ;
+    docs:mentions term:dataset,
+        term:task ;
+    docs:topicId "data.inspecting-data" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/data/inspecting-data.rst> ;
+    dcterms:title "Inspecting Data" .
+
+topic:data.iterating-over-data a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/data/iterating-over-data" ;
+    docs:hasSubject subject:core,
+        subject:data ;
+    docs:mentions term:dataset,
+        term:worker ;
+    docs:topicId "data.iterating-over-data" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/data/iterating-over-data.rst> ;
+    dcterms:title "Iterating over Data" .
+
+topic:data.joining-data a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/data/joining-data" ;
+    docs:hasSubject subject:core,
+        subject:data ;
+    docs:mentions term:actor,
+        term:dataset,
+        term:task,
+        term:worker ;
+    docs:topicId "data.joining-data" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/data/joining-data.rst> ;
+    dcterms:title "Joining Data" .
+
+topic:data.key-concepts a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/data/key-concepts" ;
+    docs:hasSubject subject:core,
+        subject:data ;
+    docs:mentions term:actor,
+        term:dataset,
+        term:driver,
+        term:object-store,
+        term:task,
+        term:worker ;
+    docs:topicId "data.key-concepts" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/data/key-concepts.rst> ;
+    dcterms:title "Key Concepts" .
+
+topic:data.loading-data a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/data/loading-data" ;
+    docs:hasSubject subject:core,
+        subject:data ;
+    docs:mentions term:dataset,
+        term:datasource,
+        term:task ;
+    docs:topicId "data.loading-data" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/data/loading-data.rst> ;
+    dcterms:title "Loading Data" .
+
+topic:data.mixing-data a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/data/mixing-data" ;
+    docs:hasSubject subject:core,
+        subject:data,
+        subject:train ;
+    docs:mentions term:dataset,
+        term:scaling-config,
+        term:task,
+        term:trainer,
+        term:worker ;
+    docs:topicId "data.mixing-data" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/data/mixing-data.rst> ;
+    dcterms:title "Weighted Dataset Mixing" .
+
+topic:data.monitoring-your-workload a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/data/monitoring-your-workload" ;
+    docs:hasSubject subject:core,
+        subject:data,
+        subject:serve ;
+    docs:mentions term:actor,
+        term:batch-inference,
+        term:dataset,
+        term:head-node,
+        term:object-store,
+        term:task ;
+    docs:topicId "data.monitoring-your-workload" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/data/monitoring-your-workload.rst> ;
+    dcterms:title "Monitoring Your Workload" .
+
+topic:data.performance-tips a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/data/performance-tips" ;
+    docs:hasSubject subject:core,
+        subject:data ;
+    docs:mentions term:dataset,
+        term:object-store,
+        term:task ;
+    docs:topicId "data.performance-tips" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/data/performance-tips.rst> ;
+    dcterms:title "Advanced: Performance Tips and Tuning" .
+
+topic:data.quickstart a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/data/quickstart" ;
+    docs:hasSubject subject:core,
+        subject:data ;
+    docs:mentions term:actor,
+        term:dataset,
+        term:object-store,
+        term:task ;
+    docs:topicId "data.quickstart" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/data/quickstart.rst> ;
+    dcterms:title "Ray Data Quickstart" .
+
+topic:data.saving-data a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/data/saving-data" ;
+    docs:hasSubject subject:core,
+        subject:data ;
+    docs:mentions term:dataset,
+        term:head-node ;
+    docs:topicId "data.saving-data" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/data/saving-data.rst> ;
+    dcterms:title "Saving Data" .
+
+topic:data.scaling-collation-functions a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/data/scaling-collation-functions" ;
+    docs:hasSubject subject:core,
+        subject:data,
+        subject:train ;
+    docs:mentions term:dataset,
+        term:scaling-config,
+        term:trainer,
+        term:training-function,
+        term:worker ;
+    docs:topicId "data.scaling-collation-functions" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/data/scaling-collation-functions.rst> ;
+    dcterms:title "Advanced: Scaling out expensive collate functions" .
+
+topic:data.shuffling-data a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/data/shuffling-data" ;
+    docs:hasSubject subject:core,
+        subject:data ;
+    docs:mentions term:dataset,
+        term:task,
+        term:worker ;
+    docs:topicId "data.shuffling-data" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/data/shuffling-data.rst> ;
+    dcterms:title "Shuffling Data" .
+
+topic:data.transforming-data a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/data/transforming-data" ;
+    docs:hasSubject subject:core,
+        subject:data,
+        subject:serve ;
+    docs:mentions term:actor,
+        term:dataset,
+        term:placement-group,
+        term:replica,
+        term:task,
+        term:worker ;
+    docs:topicId "data.transforming-data" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/data/transforming-data.rst> ;
+    dcterms:title "Transforming Data" .
+
+topic:data.user-guide a docs:SectionTopic ;
+    docs:canonicalPath "/en/latest/data/user-guide" ;
+    docs:hasSubject subject:core,
+        subject:data ;
+    docs:mentions term:datasource,
+        term:task ;
+    docs:topicId "data.user-guide" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/data/user-guide.rst> ;
+    dcterms:title "User Guides" .
+
+topic:data.working-with-images a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/data/working-with-images" ;
+    docs:hasSubject subject:data,
+        subject:serve ;
+    docs:mentions term:batch-inference,
+        term:dataset ;
+    docs:topicId "data.working-with-images" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/data/working-with-images.rst> ;
+    dcterms:title "Working with Images" .
+
+topic:data.working-with-llms a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/data/working-with-llms" ;
+    docs:hasSubject subject:core,
+        subject:data,
+        subject:serve,
+        subject:train,
+        subject:tune ;
+    docs:mentions term:actor,
+        term:batch-inference,
+        term:checkpoint,
+        term:dataset,
+        term:deployment,
+        term:placement-group,
+        term:replica,
+        term:runtime-env,
+        term:task,
+        term:worker ;
+    docs:topicId "data.working-with-llms" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/data/working-with-llms.rst> ;
+    dcterms:title "Working with LLMs" .
+
+topic:data.working-with-pytorch a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/data/working-with-pytorch" ;
+    docs:hasSubject subject:core,
+        subject:data,
+        subject:serve,
+        subject:train ;
+    docs:mentions term:actor,
+        term:batch-inference,
+        term:dataset,
+        term:scaling-config,
+        term:trainer,
+        term:training-function ;
+    docs:topicId "data.working-with-pytorch" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/data/working-with-pytorch.rst> ;
+    dcterms:title "Working with PyTorch" .
+
+topic:data.working-with-tensors a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/data/working-with-tensors" ;
+    docs:hasSubject subject:data ;
+    docs:mentions term:dataset ;
+    docs:topicId "data.working-with-tensors" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/data/working-with-tensors.rst> ;
+    dcterms:title "Working with Tensors / NumPy" .
+
+topic:data.working-with-text a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/data/working-with-text" ;
+    docs:hasSubject subject:data,
+        subject:serve ;
+    docs:mentions term:batch-inference,
+        term:dataset ;
+    docs:topicId "data.working-with-text" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/data/working-with-text.rst> ;
+    dcterms:title "Working with Text" .
+
+topic:ray-core.accelerator-types a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/accelerator-types" ;
+    docs:hasSubject subject:core ;
+    docs:topicId "ray-core.accelerator-types" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/accelerator-types.rst> ;
+    dcterms:title "Accelerator types" .
+
+topic:ray-core.actors a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/actors" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:object-ref,
+        term:task,
+        term:worker ;
+    docs:topicId "ray-core.actors" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/actors.rst> ;
+    dcterms:title "Actors" .
+
+topic:ray-core.actors.actor-utils a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/actors/actor-utils" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:task ;
+    docs:topicId "ray-core.actors.actor-utils" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/actors/actor-utils.rst> ;
+    dcterms:title "Utility Classes" .
+
+topic:ray-core.actors.async_api a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/actors/async_api" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:task ;
+    docs:topicId "ray-core.actors.async_api" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/actors/async_api.rst> ;
+    dcterms:title "AsyncIO / Concurrency for Actors" .
+
+topic:ray-core.actors.concurrency_group_api a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/actors/concurrency_group_api" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:task ;
+    docs:topicId "ray-core.actors.concurrency_group_api" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/actors/concurrency_group_api.rst> ;
+    dcterms:title "Limiting Concurrency Per-Method with Concurrency Groups" .
+
+topic:ray-core.actors.named-actors a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/actors/named-actors" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:driver,
+        term:namespace,
+        term:task ;
+    docs:topicId "ray-core.actors.named-actors" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/actors/named-actors.rst> ;
+    dcterms:title "Named Actors" .
+
+topic:ray-core.actors.out-of-band-communication a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/actors/out-of-band-communication" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:object-store ;
+    docs:topicId "ray-core.actors.out-of-band-communication" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/actors/out-of-band-communication.rst> ;
+    dcterms:title "Out-of-band Communication" .
+
+topic:ray-core.actors.task-orders a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/actors/task-orders" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:driver,
+        term:task,
+        term:worker ;
+    docs:topicId "ray-core.actors.task-orders" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/actors/task-orders.rst> ;
+    dcterms:title "Actor Task Execution Order" .
+
+topic:ray-core.actors.terminating-actors a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/actors/terminating-actors" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:object-ref,
+        term:task,
+        term:worker ;
+    docs:topicId "ray-core.actors.terminating-actors" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/actors/terminating-actors.rst> ;
+    dcterms:title "Terminating Actors" .
+
+topic:ray-core.advanced-topics a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/advanced-topics" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:head-node,
+        term:namespace ;
+    docs:topicId "ray-core.advanced-topics" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/advanced-topics.rst> ;
+    dcterms:title "Advanced topics" .
+
+topic:ray-core.compiled-graph.compiled-graph-api a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/compiled-graph/compiled-graph-api" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:compiled-graph ;
+    docs:topicId "ray-core.compiled-graph.compiled-graph-api" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/compiled-graph/compiled-graph-api.rst> ;
+    dcterms:title "Compiled Graph API" .
+
+topic:ray-core.compiled-graph.overlap a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/compiled-graph/overlap" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:compiled-graph ;
+    docs:topicId "ray-core.compiled-graph.overlap" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/compiled-graph/overlap.rst> ;
+    dcterms:title "Experimental: Overlapping communication and computation" .
+
+topic:ray-core.compiled-graph.profiling a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/compiled-graph/profiling" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:compiled-graph,
+        term:runtime-env,
+        term:task ;
+    docs:topicId "ray-core.compiled-graph.profiling" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/compiled-graph/profiling.rst> ;
+    dcterms:title "Profiling" .
+
+topic:ray-core.compiled-graph.quickstart a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/ray-core/compiled-graph/quickstart" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:compiled-graph,
+        term:driver,
+        term:object-store,
+        term:task ;
+    docs:topicId "ray-core.compiled-graph.quickstart" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/compiled-graph/quickstart.rst> ;
+    dcterms:title "Quickstart" .
+
+topic:ray-core.compiled-graph.ray-compiled-graph a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/compiled-graph/ray-compiled-graph" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:compiled-graph,
+        term:task ;
+    docs:topicId "ray-core.compiled-graph.ray-compiled-graph" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/compiled-graph/ray-compiled-graph.rst> ;
+    dcterms:title "Ray Compiled Graph (beta)" .
+
+topic:ray-core.compiled-graph.troubleshooting a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/compiled-graph/troubleshooting" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:compiled-graph,
+        term:task ;
+    docs:topicId "ray-core.compiled-graph.troubleshooting" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/compiled-graph/troubleshooting.rst> ;
+    dcterms:title "Troubleshooting" .
+
+topic:ray-core.configure a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/configure" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:deployment,
+        term:driver,
+        term:head-node,
+        term:namespace,
+        term:task,
+        term:worker ;
+    docs:topicId "ray-core.configure" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/configure.rst> ;
+    dcterms:title "Configuring Ray" .
+
+topic:ray-core.cross-language a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/cross-language" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:driver,
+        term:object-ref,
+        term:task,
+        term:worker ;
+    docs:topicId "ray-core.cross-language" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/cross-language.rst> ;
+    dcterms:title "Cross-language programming" .
+
+topic:ray-core.direct-transport.custom-tensor-transport a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/direct-transport/custom-tensor-transport" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:driver,
+        term:object-ref,
+        term:task ;
+    docs:topicId "ray-core.direct-transport.custom-tensor-transport" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/direct-transport/custom-tensor-transport.rst> ;
+    dcterms:title "Implementing a custom tensor transport (Advanced)" .
+
+topic:ray-core.direct-transport.direct-transport a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/direct-transport/direct-transport" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:driver,
+        term:object-ref,
+        term:object-store,
+        term:task ;
+    docs:topicId "ray-core.direct-transport.direct-transport" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/direct-transport/direct-transport.rst> ;
+    dcterms:title "Ray Direct Transport (RDT)" .
+
+topic:ray-core.fault-tolerance a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/fault-tolerance" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:driver,
+        term:object-ref,
+        term:object-store,
+        term:task,
+        term:worker ;
+    docs:topicId "ray-core.fault-tolerance" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/fault-tolerance.rst> ;
+    dcterms:title "Fault tolerance" .
+
+topic:ray-core.fault_tolerance.actors a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/fault_tolerance/actors" ;
+    docs:hasSubject subject:core,
+        subject:train,
+        subject:tune ;
+    docs:mentions term:actor,
+        term:checkpoint,
+        term:object-ref,
+        term:task,
+        term:worker ;
+    docs:topicId "ray-core.fault_tolerance.actors" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/fault_tolerance/actors.rst> ;
+    dcterms:title "Actor Fault Tolerance" .
+
+topic:ray-core.fault_tolerance.gcs a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/fault_tolerance/gcs" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:head-node,
+        term:placement-group,
+        term:task,
+        term:worker ;
+    docs:topicId "ray-core.fault_tolerance.gcs" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/fault_tolerance/gcs.rst> ;
+    dcterms:title "GCS Fault Tolerance" .
+
+topic:ray-core.fault_tolerance.nodes a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/fault_tolerance/nodes" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:head-node,
+        term:task,
+        term:worker ;
+    docs:topicId "ray-core.fault_tolerance.nodes" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/fault_tolerance/nodes.rst> ;
+    dcterms:title "Node Fault Tolerance" .
+
+topic:ray-core.fault_tolerance.objects a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/fault_tolerance/objects" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:driver,
+        term:object-ref,
+        term:object-store,
+        term:task,
+        term:worker ;
+    docs:topicId "ray-core.fault_tolerance.objects" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/fault_tolerance/objects.rst> ;
+    dcterms:title "Object Fault Tolerance" .
+
+topic:ray-core.fault_tolerance.tasks a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/fault_tolerance/tasks" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:driver,
+        term:object-ref,
+        term:object-store,
+        term:task,
+        term:worker ;
+    docs:topicId "ray-core.fault_tolerance.tasks" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/fault_tolerance/tasks.rst> ;
+    dcterms:title "Task Fault Tolerance" .
+
+topic:ray-core.handling-dependencies a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/handling-dependencies" ;
+    docs:hasSubject subject:core,
+        subject:data,
+        subject:serve ;
+    docs:mentions term:actor,
+        term:batch-inference,
+        term:deployment,
+        term:driver,
+        term:head-node,
+        term:runtime-env,
+        term:task,
+        term:worker ;
+    docs:topicId "ray-core.handling-dependencies" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/handling-dependencies.rst> ;
+    dcterms:title "Environment Dependencies" .
+
+topic:ray-core.head-node-memory-management a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/head-node-memory-management" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:head-node,
+        term:task,
+        term:worker ;
+    docs:topicId "ray-core.head-node-memory-management" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/head-node-memory-management.rst> ;
+    dcterms:title "Head Node Memory Management" .
+
+topic:ray-core.internals a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/internals" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:task ;
+    docs:topicId "ray-core.internals" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/internals.rst> ;
+    dcterms:title "Internals" .
+
+topic:ray-core.internals.autoscaler-v2 a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/internals/autoscaler-v2" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:head-node,
+        term:placement-group,
+        term:task,
+        term:worker ;
+    docs:topicId "ray-core.internals.autoscaler-v2" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/internals/autoscaler-v2.rst> ;
+    dcterms:title "Autoscaler v2" .
+
+topic:ray-core.internals.metric-exporter a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/internals/metric-exporter" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:object-store,
+        term:task,
+        term:worker ;
+    docs:topicId "ray-core.internals.metric-exporter" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/internals/metric-exporter.rst> ;
+    dcterms:title "Metric Exporter Infrastructure" .
+
+topic:ray-core.internals.object-spilling a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/internals/object-spilling" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:actor,
+        term:driver,
+        term:object-store,
+        term:replica,
+        term:task,
+        term:worker ;
+    docs:topicId "ray-core.internals.object-spilling" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/internals/object-spilling.rst> ;
+    dcterms:title "Object Spilling" .
+
+topic:ray-core.internals.port-service-discovery a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/internals/port-service-discovery" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:task,
+        term:worker ;
+    docs:topicId "ray-core.internals.port-service-discovery" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/internals/port-service-discovery.rst> ;
+    dcterms:title "Port Service Discovery" .
+
+topic:ray-core.internals.ray-event-exporter a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/internals/ray-event-exporter" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:driver,
+        term:task,
+        term:worker ;
+    docs:topicId "ray-core.internals.ray-event-exporter" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/internals/ray-event-exporter.rst> ;
+    dcterms:title "Ray Event Exporter Infrastructure" .
+
+topic:ray-core.internals.rpc-fault-tolerance a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/internals/rpc-fault-tolerance" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:worker ;
+    docs:topicId "ray-core.internals.rpc-fault-tolerance" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/internals/rpc-fault-tolerance.rst> ;
+    dcterms:title "RPC Fault Tolerance" .
+
+topic:ray-core.internals.streaming-generator a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/internals/streaming-generator" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:namespace,
+        term:object-ref,
+        term:object-store,
+        term:task,
+        term:worker ;
+    docs:topicId "ray-core.internals.streaming-generator" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/internals/streaming-generator.md> ;
+    dcterms:title "Streaming Generator" .
+
+topic:ray-core.internals.task-lifecycle a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/internals/task-lifecycle" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:object-ref,
+        term:object-store,
+        term:task,
+        term:worker ;
+    docs:topicId "ray-core.internals.task-lifecycle" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/internals/task-lifecycle.rst> ;
+    dcterms:title "Task Lifecycle" .
+
+topic:ray-core.internals.token-authentication a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/internals/token-authentication" ;
+    docs:hasSubject subject:core ;
+    docs:topicId "ray-core.internals.token-authentication" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/internals/token-authentication.rst> ;
+    dcterms:title "Token Authentication" .
+
+topic:ray-core.key-concepts a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/key-concepts" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:object-ref,
+        term:object-store,
+        term:placement-group,
+        term:task,
+        term:worker ;
+    docs:topicId "ray-core.key-concepts" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/key-concepts.rst> ;
+    dcterms:title "Key Concepts" .
+
+topic:ray-core.miscellaneous a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/miscellaneous" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:head-node,
+        term:task,
+        term:worker ;
+    docs:topicId "ray-core.miscellaneous" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/miscellaneous.rst> ;
+    dcterms:title "Miscellaneous Topics" .
+
+topic:ray-core.namespaces a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/namespaces" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:driver,
+        term:namespace ;
+    docs:topicId "ray-core.namespaces" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/namespaces.rst> ;
+    dcterms:title "Using Namespaces" .
+
+topic:ray-core.objects a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/objects" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:object-ref,
+        term:object-store,
+        term:task ;
+    docs:topicId "ray-core.objects" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/objects.rst> ;
+    dcterms:title "Objects" .
+
+topic:ray-core.objects.object-spilling a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/objects/object-spilling" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:object-store ;
+    docs:topicId "ray-core.objects.object-spilling" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/objects/object-spilling.rst> ;
+    dcterms:title "Object Spilling" .
+
+topic:ray-core.objects.serialization a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/objects/serialization" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:driver,
+        term:object-ref,
+        term:object-store,
+        term:runtime-env,
+        term:task,
+        term:worker ;
+    docs:topicId "ray-core.objects.serialization" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/objects/serialization.rst> ;
+    dcterms:title "Serialization" .
+
+topic:ray-core.patterns.actor-sync a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/patterns/actor-sync" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:task ;
+    docs:topicId "ray-core.patterns.actor-sync" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/patterns/actor-sync.rst> ;
+    dcterms:title "Pattern: Using an actor to synchronize other tasks and actors" .
+
+topic:ray-core.patterns.closure-capture-large-objects a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/patterns/closure-capture-large-objects" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:object-store,
+        term:task ;
+    docs:topicId "ray-core.patterns.closure-capture-large-objects" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/patterns/closure-capture-large-objects.rst> ;
+    dcterms:title "Anti-pattern: Closure capturing large objects harms performance" .
+
+topic:ray-core.patterns.concurrent-operations-async-actor a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/patterns/concurrent-operations-async-actor" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:object-ref,
+        term:task ;
+    docs:topicId "ray-core.patterns.concurrent-operations-async-actor" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/patterns/concurrent-operations-async-actor.rst> ;
+    dcterms:title "Pattern: Using asyncio to run actor methods concurrently" .
+
+topic:ray-core.patterns.fork-new-processes a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/patterns/fork-new-processes" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:driver,
+        term:task ;
+    docs:topicId "ray-core.patterns.fork-new-processes" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/patterns/fork-new-processes.rst> ;
+    dcterms:title "Anti-pattern: Forking new processes in application code" .
+
+topic:ray-core.patterns.generators a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/patterns/generators" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:object-store,
+        term:task,
+        term:worker ;
+    docs:topicId "ray-core.patterns.generators" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/patterns/generators.rst> ;
+    dcterms:title "Pattern: Using generators to reduce heap memory usage" .
+
+topic:ray-core.patterns.global-variables a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/patterns/global-variables" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:task ;
+    docs:topicId "ray-core.patterns.global-variables" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/patterns/global-variables.rst> ;
+    dcterms:title "Anti-pattern: Using global variables to share state between tasks and actors" .
+
+topic:ray-core.patterns.index a docs:SectionTopic ;
+    docs:canonicalPath "/en/latest/ray-core/patterns/index" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:task ;
+    docs:topicId "ray-core.patterns.index" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/patterns/index.rst> ;
+    dcterms:title "Design Patterns & Anti-patterns" .
+
+topic:ray-core.patterns.limit-pending-tasks a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/patterns/limit-pending-tasks" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:task,
+        term:worker ;
+    docs:topicId "ray-core.patterns.limit-pending-tasks" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/patterns/limit-pending-tasks.rst> ;
+    dcterms:title "Pattern: Using ray.wait to limit the number of pending tasks" .
+
+topic:ray-core.patterns.limit-running-tasks a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/patterns/limit-running-tasks" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:task ;
+    docs:topicId "ray-core.patterns.limit-running-tasks" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/patterns/limit-running-tasks.rst> ;
+    dcterms:title "Pattern: Using resources to limit the number of concurrently running tasks" .
+
+topic:ray-core.patterns.nested-ray-get a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/patterns/nested-ray-get" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:object-ref,
+        term:task ;
+    docs:topicId "ray-core.patterns.nested-ray-get" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/patterns/nested-ray-get.rst> ;
+    dcterms:title "Anti-pattern: Calling ray.get on task arguments harms performance" .
+
+topic:ray-core.patterns.nested-tasks a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/patterns/nested-tasks" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:task,
+        term:worker ;
+    docs:topicId "ray-core.patterns.nested-tasks" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/patterns/nested-tasks.rst> ;
+    dcterms:title "Pattern: Using nested tasks to achieve nested parallelism" .
+
+topic:ray-core.patterns.out-of-band-object-ref-serialization a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/patterns/out-of-band-object-ref-serialization" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:object-ref,
+        term:object-store,
+        term:worker ;
+    docs:topicId "ray-core.patterns.out-of-band-object-ref-serialization" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/patterns/out-of-band-object-ref-serialization.rst> ;
+    dcterms:title "Anti-pattern: Serialize ray.ObjectRef out of band" .
+
+topic:ray-core.patterns.pass-large-arg-by-value a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/patterns/pass-large-arg-by-value" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:object-ref,
+        term:object-store,
+        term:task,
+        term:worker ;
+    docs:topicId "ray-core.patterns.pass-large-arg-by-value" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/patterns/pass-large-arg-by-value.rst> ;
+    dcterms:title "Anti-pattern: Passing the same large argument by value repeatedly harms performance" .
+
+topic:ray-core.patterns.pipelining a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/patterns/pipelining" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:worker ;
+    docs:topicId "ray-core.patterns.pipelining" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/patterns/pipelining.rst> ;
+    dcterms:title "Pattern: Using pipelining to increase throughput" .
+
+topic:ray-core.patterns.ray-get-loop a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/patterns/ray-get-loop" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:task ;
+    docs:topicId "ray-core.patterns.ray-get-loop" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/patterns/ray-get-loop.rst> ;
+    dcterms:title "Anti-pattern: Calling ray.get in a loop harms parallelism" .
+
+topic:ray-core.patterns.ray-get-submission-order a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/patterns/ray-get-submission-order" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:task ;
+    docs:topicId "ray-core.patterns.ray-get-submission-order" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/patterns/ray-get-submission-order.rst> ;
+    dcterms:title "Anti-pattern: Processing results in submission order using ray.get increases runtime" .
+
+topic:ray-core.patterns.ray-get-too-many-objects a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/patterns/ray-get-too-many-objects" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:object-store,
+        term:task ;
+    docs:topicId "ray-core.patterns.ray-get-too-many-objects" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/patterns/ray-get-too-many-objects.rst> ;
+    dcterms:title "Anti-pattern: Fetching too many objects at once with ray.get causes failure" .
+
+topic:ray-core.patterns.redefine-task-actor-loop a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/patterns/redefine-task-actor-loop" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:task,
+        term:worker ;
+    docs:topicId "ray-core.patterns.redefine-task-actor-loop" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/patterns/redefine-task-actor-loop.rst> ;
+    dcterms:title "Anti-pattern: Redefining the same remote function or class harms performance" .
+
+topic:ray-core.patterns.return-ray-put a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/patterns/return-ray-put" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:driver,
+        term:object-ref,
+        term:object-store,
+        term:task,
+        term:worker ;
+    docs:topicId "ray-core.patterns.return-ray-put" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/patterns/return-ray-put.rst> ;
+    dcterms:title "Anti-pattern: Returning ray.put() ObjectRefs from a task harms performance and fault tolerance" .
+
+topic:ray-core.patterns.too-fine-grained-tasks a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/patterns/too-fine-grained-tasks" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:task ;
+    docs:topicId "ray-core.patterns.too-fine-grained-tasks" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/patterns/too-fine-grained-tasks.rst> ;
+    dcterms:title "Anti-pattern: Over-parallelizing with too fine-grained tasks harms speedup" .
+
+topic:ray-core.patterns.tree-of-actors a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/patterns/tree-of-actors" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:driver,
+        term:task,
+        term:worker ;
+    docs:topicId "ray-core.patterns.tree-of-actors" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/patterns/tree-of-actors.rst> ;
+    dcterms:title "Pattern: Using a supervisor actor to manage a tree of actors" .
+
+topic:ray-core.patterns.unnecessary-ray-get a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/patterns/unnecessary-ray-get" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:driver,
+        term:task,
+        term:worker ;
+    docs:topicId "ray-core.patterns.unnecessary-ray-get" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/patterns/unnecessary-ray-get.rst> ;
+    dcterms:title "Anti-pattern: Calling ray.get unnecessarily harms performance" .
+
+topic:ray-core.ray-dag a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/ray-dag" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:compiled-graph,
+        term:task ;
+    docs:topicId "ray-core.ray-dag" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/ray-dag.rst> ;
+    dcterms:title "Lazy Computation Graphs with the Ray DAG API" .
+
+topic:ray-core.ray-generator a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/ray-generator" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:object-ref,
+        term:object-store,
+        term:task,
+        term:worker ;
+    docs:topicId "ray-core.ray-generator" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/ray-generator.rst> ;
+    dcterms:title "Ray Generators" .
+
+topic:ray-core.resource-isolation-with-cgroupv2 a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/resource-isolation-with-cgroupv2" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:task,
+        term:worker ;
+    docs:topicId "ray-core.resource-isolation-with-cgroupv2" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/resource-isolation-with-cgroupv2.rst> ;
+    dcterms:title "Resource Isolation With Cgroup v2" .
+
+topic:ray-core.runtime_env_auth a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/runtime_env_auth" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:deployment,
+        term:runtime-env ;
+    docs:topicId "ray-core.runtime_env_auth" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/runtime_env_auth.md> ;
+    dcterms:title "Authenticating Remote URIs in runtime_env" .
+
+topic:ray-core.scheduling.accelerators a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/scheduling/accelerators" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:task,
+        term:worker ;
+    docs:topicId "ray-core.scheduling.accelerators" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/scheduling/accelerators.rst> ;
+    dcterms:title "Accelerator Support" .
+
+topic:ray-core.scheduling.index a docs:SectionTopic ;
+    docs:canonicalPath "/en/latest/ray-core/scheduling/index" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:placement-group,
+        term:task ;
+    docs:topicId "ray-core.scheduling.index" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/scheduling/index.rst> ;
+    dcterms:title "Scheduling" .
+
+topic:ray-core.scheduling.labels a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/scheduling/labels" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:head-node,
+        term:placement-group,
+        term:task,
+        term:worker ;
+    docs:topicId "ray-core.scheduling.labels" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/scheduling/labels.md> ;
+    dcterms:title "Labels" .
+
+topic:ray-core.scheduling.memory-management a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/scheduling/memory-management" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:driver,
+        term:object-ref,
+        term:object-store,
+        term:task,
+        term:worker ;
+    docs:topicId "ray-core.scheduling.memory-management" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/scheduling/memory-management.rst> ;
+    dcterms:title "Memory Management" .
+
+topic:ray-core.scheduling.placement-group a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/scheduling/placement-group" ;
+    docs:hasSubject subject:core,
+        subject:tune ;
+    docs:mentions term:actor,
+        term:driver,
+        term:namespace,
+        term:placement-group,
+        term:task,
+        term:trial ;
+    docs:topicId "ray-core.scheduling.placement-group" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/scheduling/placement-group.rst> ;
+    dcterms:title "Placement Groups" .
+
+topic:ray-core.scheduling.ray-oom-prevention a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/scheduling/ray-oom-prevention" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:head-node,
+        term:object-store,
+        term:task,
+        term:worker ;
+    docs:topicId "ray-core.scheduling.ray-oom-prevention" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/scheduling/ray-oom-prevention.rst> ;
+    dcterms:title "Out-Of-Memory Prevention" .
+
+topic:ray-core.scheduling.resources a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/scheduling/resources" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:head-node,
+        term:object-store,
+        term:task,
+        term:worker ;
+    docs:topicId "ray-core.scheduling.resources" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/scheduling/resources.rst> ;
+    dcterms:title "Resources" .
+
+topic:ray-core.starting-ray a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/starting-ray" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:deployment,
+        term:driver,
+        term:head-node,
+        term:worker ;
+    docs:topicId "ray-core.starting-ray" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/starting-ray.rst> ;
+    dcterms:title "Starting Ray" .
+
+topic:ray-core.tasks a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/tasks" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:object-ref,
+        term:task,
+        term:worker ;
+    docs:topicId "ray-core.tasks" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/tasks.rst> ;
+    dcterms:title "Tasks" .
+
+topic:ray-core.tasks.dynamic_generators a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/tasks/dynamic_generators" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:object-ref,
+        term:object-store,
+        term:task ;
+    docs:topicId "ray-core.tasks.dynamic_generators" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/tasks/dynamic_generators.rst> ;
+    dcterms:title "Dynamic generators" .
+
+topic:ray-core.tasks.nested-tasks a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/tasks/nested-tasks" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:object-ref,
+        term:task,
+        term:worker ;
+    docs:topicId "ray-core.tasks.nested-tasks" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/tasks/nested-tasks.rst> ;
+    dcterms:title "Nested Remote Functions" .
+
+topic:ray-core.tips-for-first-time a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/tips-for-first-time" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:driver,
+        term:object-ref,
+        term:object-store,
+        term:task,
+        term:worker ;
+    docs:topicId "ray-core.tips-for-first-time" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/tips-for-first-time.rst> ;
+    dcterms:title "Tips for first-time users" .
+
+topic:ray-core.type-hint a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/type-hint" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:object-ref,
+        term:task ;
+    docs:topicId "ray-core.type-hint" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/type-hint.md> ;
+    dcterms:title "Type hints in Ray" .
+
+topic:ray-core.user-guide a docs:SectionTopic ;
+    docs:canonicalPath "/en/latest/ray-core/user-guide" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:task ;
+    docs:topicId "ray-core.user-guide" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/user-guide.rst> ;
+    dcterms:title "User Guides" .
+
+topic:ray-core.user-spawn-processes a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/user-spawn-processes" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:worker ;
+    docs:topicId "ray-core.user-spawn-processes" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/user-spawn-processes.rst> ;
+    dcterms:title "Lifetimes of a User-Spawn Process" .
+
+topic:ray-core.using-ray-with-jupyter a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/using-ray-with-jupyter" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:object-store ;
+    docs:topicId "ray-core.using-ray-with-jupyter" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/using-ray-with-jupyter.rst> ;
+    dcterms:title "Working with Jupyter Notebooks & JupyterLab" .
+
+topic:ray-core.walkthrough a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-core/walkthrough" ;
+    docs:hasSubject subject:core ;
+    docs:mentions term:actor,
+        term:object-ref,
+        term:object-store,
+        term:task,
+        term:worker ;
+    docs:topicId "ray-core.walkthrough" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-core/walkthrough.rst> ;
+    dcterms:title "What's Ray Core?" .
+
+topic:ray-observability.getting-started a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/ray-observability/getting-started" ;
+    docs:hasSubject subject:core,
+        subject:observability,
+        subject:serve ;
+    docs:mentions term:actor,
+        term:deployment,
+        term:driver,
+        term:head-node,
+        term:placement-group,
+        term:replica,
+        term:task,
+        term:worker ;
+    docs:partOf topic:ray-observability ;
+    docs:topicId "ray-observability.getting-started" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-observability/getting-started.rst> ;
+    dcterms:title "Ray Dashboard" .
+
+topic:ray-observability.key-concepts a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-observability/key-concepts" ;
+    docs:hasSubject subject:core,
+        subject:observability ;
+    docs:mentions term:actor,
+        term:driver,
+        term:head-node,
+        term:object-ref,
+        term:runtime-env,
+        term:task,
+        term:worker ;
+    docs:partOf topic:ray-observability ;
+    docs:topicId "ray-observability.key-concepts" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-observability/key-concepts.rst> ;
+    dcterms:title "Key Concepts" .
+
+topic:ray-observability.ray-distributed-debugger a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-observability/ray-distributed-debugger" ;
+    docs:hasSubject subject:core,
+        subject:observability ;
+    docs:mentions term:head-node,
+        term:task ;
+    docs:partOf topic:ray-observability ;
+    docs:topicId "ray-observability.ray-distributed-debugger" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-observability/ray-distributed-debugger.rst> ;
+    dcterms:title "Ray Distributed Debugger" .
+
+topic:ray-observability.reference.api a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-observability/reference/api" ;
+    docs:hasSubject subject:observability ;
+    docs:partOf topic:ray-observability ;
+    docs:topicId "ray-observability.reference.api" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-observability/reference/api.rst> ;
+    dcterms:title "State API" .
+
+topic:ray-observability.reference.cli a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-observability/reference/cli" ;
+    docs:hasSubject subject:core,
+        subject:observability ;
+    docs:mentions term:actor,
+        term:task ;
+    docs:partOf topic:ray-observability ;
+    docs:topicId "ray-observability.reference.cli" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-observability/reference/cli.rst> ;
+    dcterms:title "State CLI" .
+
+topic:ray-observability.reference.index a docs:SectionTopic ;
+    docs:canonicalPath "/en/latest/ray-observability/reference/index" ;
+    docs:hasSubject subject:observability ;
+    docs:partOf topic:ray-observability ;
+    docs:topicId "ray-observability.reference.index" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-observability/reference/index.md> ;
+    dcterms:title "Reference" .
+
+topic:ray-observability.reference.system-metrics a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-observability/reference/system-metrics" ;
+    docs:hasSubject subject:core,
+        subject:observability ;
+    docs:mentions term:actor,
+        term:object-store,
+        term:placement-group,
+        term:task,
+        term:worker ;
+    docs:partOf topic:ray-observability ;
+    docs:topicId "ray-observability.reference.system-metrics" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-observability/reference/system-metrics.rst> ;
+    dcterms:title "System Metrics" .
+
+topic:ray-observability.user-guides.add-app-metrics a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/ray-observability/user-guides/add-app-metrics" ;
+    docs:hasSubject subject:core,
+        subject:observability ;
+    docs:mentions term:actor ;
+    docs:partOf topic:ray-observability ;
+    docs:topicId "ray-observability.user-guides.add-app-metrics" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-observability/user-guides/add-app-metrics.rst> ;
+    dcterms:title "Adding Application-Level Metrics" .
+
+topic:ray-observability.user-guides.cli-sdk a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/ray-observability/user-guides/cli-sdk" ;
+    docs:hasSubject subject:core,
+        subject:observability ;
+    docs:mentions term:actor,
+        term:driver,
+        term:head-node,
+        term:placement-group,
+        term:task,
+        term:worker ;
+    docs:partOf topic:ray-observability ;
+    docs:topicId "ray-observability.user-guides.cli-sdk" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-observability/user-guides/cli-sdk.rst> ;
+    dcterms:title "Monitoring with the CLI or SDK" .
+
+topic:ray-observability.user-guides.configure-logging a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/ray-observability/user-guides/configure-logging" ;
+    docs:hasSubject subject:core,
+        subject:observability ;
+    docs:mentions term:actor,
+        term:driver,
+        term:head-node,
+        term:runtime-env,
+        term:task,
+        term:worker ;
+    docs:partOf topic:ray-observability ;
+    docs:topicId "ray-observability.user-guides.configure-logging" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-observability/user-guides/configure-logging.md> ;
+    dcterms:title "Configuring Logging" .
+
+topic:ray-observability.user-guides.debug-apps.debug-failures a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-observability/user-guides/debug-apps/debug-failures" ;
+    docs:hasSubject subject:core,
+        subject:observability ;
+    docs:mentions term:actor,
+        term:driver,
+        term:head-node,
+        term:object-ref,
+        term:task,
+        term:worker ;
+    docs:partOf topic:ray-observability ;
+    docs:topicId "ray-observability.user-guides.debug-apps.debug-failures" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-observability/user-guides/debug-apps/debug-failures.rst> ;
+    dcterms:title "Debugging Failures" .
+
+topic:ray-observability.user-guides.debug-apps.debug-hangs a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-observability/user-guides/debug-apps/debug-hangs" ;
+    docs:hasSubject subject:core,
+        subject:observability ;
+    docs:mentions term:actor,
+        term:driver,
+        term:task,
+        term:worker ;
+    docs:partOf topic:ray-observability ;
+    docs:topicId "ray-observability.user-guides.debug-apps.debug-hangs" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-observability/user-guides/debug-apps/debug-hangs.rst> ;
+    dcterms:title "Debugging Hangs" .
+
+topic:ray-observability.user-guides.debug-apps.debug-memory a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-observability/user-guides/debug-apps/debug-memory" ;
+    docs:hasSubject subject:core,
+        subject:observability ;
+    docs:mentions term:actor,
+        term:driver,
+        term:head-node,
+        term:object-store,
+        term:task,
+        term:worker ;
+    docs:partOf topic:ray-observability ;
+    docs:topicId "ray-observability.user-guides.debug-apps.debug-memory" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-observability/user-guides/debug-apps/debug-memory.rst> ;
+    dcterms:title "Debugging Memory Issues" .
+
+topic:ray-observability.user-guides.debug-apps.general-debugging a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-observability/user-guides/debug-apps/general-debugging" ;
+    docs:hasSubject subject:core,
+        subject:observability ;
+    docs:mentions term:actor,
+        term:driver,
+        term:head-node,
+        term:placement-group,
+        term:runtime-env,
+        term:task,
+        term:worker ;
+    docs:partOf topic:ray-observability ;
+    docs:topicId "ray-observability.user-guides.debug-apps.general-debugging" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-observability/user-guides/debug-apps/general-debugging.rst> ;
+    dcterms:title "Common Issues" .
+
+topic:ray-observability.user-guides.debug-apps.index a docs:SectionTopic ;
+    docs:canonicalPath "/en/latest/ray-observability/user-guides/debug-apps/index" ;
+    docs:hasSubject subject:core,
+        subject:observability ;
+    docs:mentions term:task ;
+    docs:partOf topic:ray-observability ;
+    docs:topicId "ray-observability.user-guides.debug-apps.index" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-observability/user-guides/debug-apps/index.md> ;
+    dcterms:title "Debugging Applications" .
+
+topic:ray-observability.user-guides.debug-apps.optimize-performance a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-observability/user-guides/debug-apps/optimize-performance" ;
+    docs:hasSubject subject:core,
+        subject:data,
+        subject:observability,
+        subject:serve ;
+    docs:mentions term:actor,
+        term:batch-inference,
+        term:task,
+        term:worker ;
+    docs:partOf topic:ray-observability ;
+    docs:topicId "ray-observability.user-guides.debug-apps.optimize-performance" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-observability/user-guides/debug-apps/optimize-performance.rst> ;
+    dcterms:title "Optimizing Performance" .
+
+topic:ray-observability.user-guides.debug-apps.ray-debugging a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-observability/user-guides/debug-apps/ray-debugging" ;
+    docs:hasSubject subject:core,
+        subject:observability ;
+    docs:mentions term:actor,
+        term:head-node,
+        term:runtime-env,
+        term:task,
+        term:worker ;
+    docs:partOf topic:ray-observability ;
+    docs:topicId "ray-observability.user-guides.debug-apps.ray-debugging" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-observability/user-guides/debug-apps/ray-debugging.rst> ;
+    dcterms:title "Using the Ray Debugger" .
+
+topic:ray-observability.user-guides.index a docs:SectionTopic ;
+    docs:canonicalPath "/en/latest/ray-observability/user-guides/index" ;
+    docs:hasSubject subject:observability ;
+    docs:partOf topic:ray-observability ;
+    docs:topicId "ray-observability.user-guides.index" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-observability/user-guides/index.md> ;
+    dcterms:title "User Guides" .
+
+topic:ray-observability.user-guides.profiling a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/ray-observability/user-guides/profiling" ;
+    docs:hasSubject subject:core,
+        subject:observability,
+        subject:serve ;
+    docs:mentions term:actor,
+        term:deployment,
+        term:driver,
+        term:head-node,
+        term:runtime-env,
+        term:task,
+        term:worker ;
+    docs:partOf topic:ray-observability ;
+    docs:topicId "ray-observability.user-guides.profiling" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-observability/user-guides/profiling.md> ;
+    dcterms:title "Profiling" .
+
+topic:ray-observability.user-guides.ray-event-export a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/ray-observability/user-guides/ray-event-export" ;
+    docs:hasSubject subject:core,
+        subject:observability ;
+    docs:mentions term:actor,
+        term:driver,
+        term:task,
+        term:worker ;
+    docs:partOf topic:ray-observability ;
+    docs:topicId "ray-observability.user-guides.ray-event-export" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-observability/user-guides/ray-event-export.rst> ;
+    dcterms:title "Ray Event Export" .
+
+topic:ray-observability.user-guides.ray-tracing a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/ray-observability/user-guides/ray-tracing" ;
+    docs:hasSubject subject:core,
+        subject:observability ;
+    docs:mentions term:task,
+        term:worker ;
+    docs:partOf topic:ray-observability ;
+    docs:topicId "ray-observability.user-guides.ray-tracing" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-observability/user-guides/ray-tracing.rst> ;
+    dcterms:title "Tracing" .
+
+topic:ray-overview.examples a docs:SectionTopic ;
+    docs:canonicalPath "/en/latest/ray-overview/examples" ;
+    docs:hasSubject subject:core ;
+    docs:partOf topic:ray-overview ;
+    docs:topicId "ray-overview.examples" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-overview/examples.rst> ;
+    dcterms:title "Ray Examples" .
+
+topic:ray-overview.getting-started a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/ray-overview/getting-started" ;
+    docs:hasSubject subject:core,
+        subject:data,
+        subject:train,
+        subject:tune ;
+    docs:mentions term:actor,
+        term:dataset,
+        term:object-ref,
+        term:search-algorithm,
+        term:task,
+        term:trainer,
+        term:training-function,
+        term:trial,
+        term:worker ;
+    docs:partOf topic:ray-overview ;
+    docs:topicId "ray-overview.getting-started" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-overview/getting-started.md> ;
+    dcterms:title "Getting Started" .
+
+topic:ray-overview.installation a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/ray-overview/installation" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:deployment,
+        term:object-store ;
+    docs:partOf topic:ray-overview ;
+    docs:topicId "ray-overview.installation" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-overview/installation.rst> ;
+    dcterms:title "Installing Ray" .
+
+topic:ray-overview.ray-libraries a docs:SectionTopic ;
+    docs:canonicalPath "/en/latest/ray-overview/ray-libraries" ;
+    docs:hasSubject subject:core,
+        subject:data,
+        subject:serve,
+        subject:train ;
+    docs:mentions term:batch-inference,
+        term:dataset,
+        term:trainer ;
+    docs:partOf topic:ray-overview ;
+    docs:topicId "ray-overview.ray-libraries" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-overview/ray-libraries.rst> ;
+    dcterms:title "The Ray Ecosystem" .
+
+topic:ray-overview.use-cases a docs:SectionTopic ;
+    docs:canonicalPath "/en/latest/ray-overview/use-cases" ;
+    docs:hasSubject subject:core,
+        subject:data,
+        subject:serve,
+        subject:train,
+        subject:tune ;
+    docs:mentions term:actor,
+        term:batch-inference,
+        term:checkpoint,
+        term:deployment,
+        term:search-algorithm,
+        term:trainer,
+        term:trial ;
+    docs:partOf topic:ray-overview ;
+    docs:topicId "ray-overview.use-cases" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-overview/use-cases.rst> ;
+    dcterms:title "Ray Use Cases" .
+
+topic:serve.advanced-guides.advanced-autoscaling a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/advanced-guides/advanced-autoscaling" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:deployment,
+        term:driver,
+        term:replica,
+        term:task ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.advanced-guides.advanced-autoscaling" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/advanced-guides/advanced-autoscaling.md> ;
+    dcterms:title "Advanced Ray Serve Autoscaling" .
+
+topic:serve.advanced-guides.app-builder-guide a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/advanced-guides/app-builder-guide" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:deployment,
+        term:replica,
+        term:worker ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.advanced-guides.app-builder-guide" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/advanced-guides/app-builder-guide.md> ;
+    dcterms:title "Pass Arguments to Applications" .
+
+topic:serve.advanced-guides.asyncio-best-practices a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/advanced-guides/asyncio-best-practices" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:actor,
+        term:deployment,
+        term:replica,
+        term:task,
+        term:worker ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.advanced-guides.asyncio-best-practices" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/advanced-guides/asyncio-best-practices.md> ;
+    dcterms:title "Asyncio and concurrency best practices in Ray Serve" .
+
+topic:serve.advanced-guides.custom-request-router a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/advanced-guides/custom-request-router" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:actor,
+        term:deployment,
+        term:replica,
+        term:serve-handle ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.advanced-guides.custom-request-router" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/advanced-guides/custom-request-router.md> ;
+    dcterms:title "Use Custom Algorithm for Request Routing" .
+
+topic:serve.advanced-guides.deploy-vm a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/advanced-guides/deploy-vm" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:deployment,
+        term:head-node,
+        term:runtime-env ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.advanced-guides.deploy-vm" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/advanced-guides/deploy-vm.md> ;
+    dcterms:title "Deploy on VM" .
+
+topic:serve.advanced-guides.deployment-scoped-actors a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/advanced-guides/deployment-scoped-actors" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:actor,
+        term:deployment,
+        term:driver,
+        term:replica,
+        term:runtime-env ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.advanced-guides.deployment-scoped-actors" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/advanced-guides/deployment-scoped-actors.md> ;
+    dcterms:title "Use deployment-scoped actors" .
+
+topic:serve.advanced-guides.dev-workflow a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/advanced-guides/dev-workflow" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:deployment,
+        term:head-node,
+        term:replica,
+        term:runtime-env,
+        term:worker ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.advanced-guides.dev-workflow" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/advanced-guides/dev-workflow.md> ;
+    dcterms:title "Development Workflow" .
+
+topic:serve.advanced-guides.dyn-req-batch a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/advanced-guides/dyn-req-batch" ;
+    docs:hasSubject subject:serve ;
+    docs:mentions term:deployment ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.advanced-guides.dyn-req-batch" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/advanced-guides/dyn-req-batch.md> ;
+    dcterms:title "Dynamic Request Batching" .
+
+topic:serve.advanced-guides.gang-scheduling a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/advanced-guides/gang-scheduling" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:actor,
+        term:deployment,
+        term:placement-group,
+        term:replica,
+        term:task,
+        term:worker ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.advanced-guides.gang-scheduling" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/advanced-guides/gang-scheduling.md> ;
+    dcterms:title "Gang scheduling" .
+
+topic:serve.advanced-guides.grpc-guide a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/advanced-guides/grpc-guide" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:deployment,
+        term:replica,
+        term:runtime-env ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.advanced-guides.grpc-guide" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/advanced-guides/grpc-guide.md> ;
+    dcterms:title "Set Up a gRPC Service" .
+
+topic:serve.advanced-guides.index a docs:SectionTopic ;
+    docs:canonicalPath "/en/latest/serve/advanced-guides/index" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:actor,
+        term:deployment,
+        term:replica ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.advanced-guides.index" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/advanced-guides/index.md> ;
+    dcterms:title "Advanced Guides" .
+
+topic:serve.advanced-guides.inplace-updates a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/advanced-guides/inplace-updates" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:deployment,
+        term:replica,
+        term:runtime-env ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.advanced-guides.inplace-updates" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/advanced-guides/inplace-updates.md> ;
+    dcterms:title "Updating Applications In-Place" .
+
+topic:serve.advanced-guides.managing-java-deployments a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/advanced-guides/managing-java-deployments" ;
+    docs:hasSubject subject:serve ;
+    docs:mentions term:deployment,
+        term:ingress-deployment,
+        term:replica ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.advanced-guides.managing-java-deployments" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/advanced-guides/managing-java-deployments.md> ;
+    dcterms:title "Experimental Java API" .
+
+topic:serve.advanced-guides.multi-app-container a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/advanced-guides/multi-app-container" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:actor,
+        term:deployment,
+        term:driver,
+        term:replica,
+        term:runtime-env,
+        term:worker ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.advanced-guides.multi-app-container" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/advanced-guides/multi-app-container.md> ;
+    dcterms:title "Run Multiple Applications in Different Containers" .
+
+topic:serve.advanced-guides.multi-node-gpu-troubleshooting a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/advanced-guides/multi-node-gpu-troubleshooting" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:deployment,
+        term:worker ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.advanced-guides.multi-node-gpu-troubleshooting" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/advanced-guides/multi-node-gpu-troubleshooting.md> ;
+    dcterms:title "Troubleshoot multi-node GPU serving on KubeRay" .
+
+topic:serve.advanced-guides.performance a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/advanced-guides/performance" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:actor,
+        term:deployment,
+        term:head-node,
+        term:object-ref,
+        term:object-store,
+        term:replica,
+        term:serve-handle,
+        term:task,
+        term:worker ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.advanced-guides.performance" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/advanced-guides/performance.md> ;
+    dcterms:title "Performance Tuning" .
+
+topic:serve.advanced-guides.replica-ranks a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/advanced-guides/replica-ranks" ;
+    docs:hasSubject subject:serve ;
+    docs:mentions term:deployment,
+        term:replica ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.advanced-guides.replica-ranks" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/advanced-guides/replica-ranks.md> ;
+    dcterms:title "Replica ranks" .
+
+topic:serve.advanced-guides.replica-scheduling a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/advanced-guides/replica-scheduling" ;
+    docs:hasSubject subject:core,
+        subject:data,
+        subject:serve ;
+    docs:mentions term:actor,
+        term:batch-inference,
+        term:deployment,
+        term:head-node,
+        term:placement-group,
+        term:replica,
+        term:task,
+        term:worker ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.advanced-guides.replica-scheduling" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/advanced-guides/replica-scheduling.md> ;
+    dcterms:title "Replica scheduling" .
+
+topic:serve.architecture a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/serve/architecture" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:actor,
+        term:deployment,
+        term:head-node,
+        term:object-store,
+        term:replica,
+        term:serve-handle ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.architecture" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/architecture.md> ;
+    dcterms:title "Architecture" .
+
+topic:serve.asynchronous-inference a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/serve/asynchronous-inference" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:actor,
+        term:deployment,
+        term:ingress-deployment,
+        term:replica,
+        term:task,
+        term:worker ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.asynchronous-inference" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/asynchronous-inference.md> ;
+    dcterms:title "Asynchronous Inference" .
+
+topic:serve.autoscaling-guide a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/autoscaling-guide" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:actor,
+        term:deployment,
+        term:replica,
+        term:worker ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.autoscaling-guide" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/autoscaling-guide.md> ;
+    dcterms:title "Ray Serve Autoscaling" .
+
+topic:serve.configure-serve-deployment a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/configure-serve-deployment" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:actor,
+        term:deployment,
+        term:replica,
+        term:runtime-env,
+        term:serve-handle ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.configure-serve-deployment" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/configure-serve-deployment.md> ;
+    dcterms:title "Configure Ray Serve deployments" .
+
+topic:serve.develop-and-deploy a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/develop-and-deploy" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:deployment,
+        term:head-node,
+        term:replica,
+        term:runtime-env ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.develop-and-deploy" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/develop-and-deploy.md> ;
+    dcterms:title "Develop and Deploy an ML Application" .
+
+topic:serve.getting_started a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/getting_started" ;
+    docs:hasSubject subject:serve ;
+    docs:mentions term:deployment,
+        term:replica,
+        term:serve-handle ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.getting_started" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/getting_started.md> ;
+    dcterms:title "Getting Started" .
+
+topic:serve.http-guide a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/http-guide" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:actor,
+        term:deployment,
+        term:ingress-deployment,
+        term:replica,
+        term:serve-handle,
+        term:task,
+        term:worker ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.http-guide" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/http-guide.md> ;
+    dcterms:title "Set Up FastAPI and HTTP" .
+
+topic:serve.key-concepts a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/serve/key-concepts" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:actor,
+        term:deployment,
+        term:ingress-deployment,
+        term:replica,
+        term:serve-handle ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.key-concepts" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/key-concepts.md> ;
+    dcterms:title "Key Concepts" .
+
+topic:serve.llm.architecture.core a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/serve/llm/architecture/core" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:actor,
+        term:deployment,
+        term:placement-group,
+        term:replica,
+        term:runtime-env,
+        term:serve-handle,
+        term:task,
+        term:worker ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.llm.architecture.core" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/llm/architecture/core.md> ;
+    dcterms:title "Core components" .
+
+topic:serve.llm.architecture.index a docs:SectionTopic ;
+    docs:canonicalPath "/en/latest/serve/llm/architecture/index" ;
+    docs:hasSubject subject:serve ;
+    docs:mentions term:deployment,
+        term:replica ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.llm.architecture.index" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/llm/architecture/index.md> ;
+    dcterms:title "Architecture" .
+
+topic:serve.llm.architecture.overview a docs:SectionTopic ;
+    docs:canonicalPath "/en/latest/serve/llm/architecture/overview" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:actor,
+        term:deployment,
+        term:placement-group,
+        term:replica,
+        term:worker ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.llm.architecture.overview" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/llm/architecture/overview.md> ;
+    dcterms:title "Architecture overview" .
+
+topic:serve.llm.architecture.routing-policies a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/serve/llm/architecture/routing-policies" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:actor,
+        term:deployment,
+        term:ingress-deployment,
+        term:replica,
+        term:task ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.llm.architecture.routing-policies" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/llm/architecture/routing-policies.md> ;
+    dcterms:title "Request routing" .
+
+topic:serve.llm.architecture.serving-patterns.data-parallel a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/serve/llm/architecture/serving-patterns/data-parallel" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:deployment,
+        term:replica,
+        term:worker ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.llm.architecture.serving-patterns.data-parallel" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/llm/architecture/serving-patterns/data-parallel.md> ;
+    dcterms:title "Data parallel attention" .
+
+topic:serve.llm.architecture.serving-patterns.index a docs:SectionTopic ;
+    docs:canonicalPath "/en/latest/serve/llm/architecture/serving-patterns/index" ;
+    docs:hasSubject subject:serve ;
+    docs:mentions term:deployment,
+        term:replica ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.llm.architecture.serving-patterns.index" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/llm/architecture/serving-patterns/index.md> ;
+    dcterms:title "Serving patterns" .
+
+topic:serve.llm.architecture.serving-patterns.prefill-decode a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/serve/llm/architecture/serving-patterns/prefill-decode" ;
+    docs:hasSubject subject:serve ;
+    docs:mentions term:deployment,
+        term:replica,
+        term:serve-handle ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.llm.architecture.serving-patterns.prefill-decode" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/llm/architecture/serving-patterns/prefill-decode.md> ;
+    dcterms:title "Prefill-decode disaggregation" .
+
+topic:serve.llm.examples a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/serve/llm/examples" ;
+    docs:hasSubject subject:serve ;
+    docs:mentions term:deployment ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.llm.examples" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/llm/examples.md> ;
+    dcterms:title "Examples" .
+
+topic:serve.llm.index a docs:SectionTopic ;
+    docs:canonicalPath "/en/latest/serve/llm/index" ;
+    docs:hasSubject subject:serve ;
+    docs:mentions term:deployment ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.llm.index" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/llm/index.md> ;
+    dcterms:title "Serving LLMs" .
+
+topic:serve.llm.quick-start a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/llm/quick-start" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:deployment,
+        term:runtime-env ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.llm.quick-start" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/llm/quick-start.md> ;
+    dcterms:title "Quickstart" .
+
+topic:serve.llm.troubleshooting a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/serve/llm/troubleshooting" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:deployment,
+        term:runtime-env ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.llm.troubleshooting" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/llm/troubleshooting.md> ;
+    dcterms:title "Troubleshooting" .
+
+topic:serve.llm.user-guides.configuration a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/llm/user-guides/configuration" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:deployment,
+        term:replica,
+        term:runtime-env,
+        term:worker ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.llm.user-guides.configuration" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/llm/user-guides/configuration.md> ;
+    dcterms:title "Configuration reference" .
+
+topic:serve.llm.user-guides.cross-node-parallelism a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/llm/user-guides/cross-node-parallelism" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:actor,
+        term:deployment,
+        term:placement-group,
+        term:replica,
+        term:worker ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.llm.user-guides.cross-node-parallelism" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/llm/user-guides/cross-node-parallelism.md> ;
+    dcterms:title "Cross-node parallelism" .
+
+topic:serve.llm.user-guides.data-parallel-attention a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/llm/user-guides/data-parallel-attention" ;
+    docs:hasSubject subject:serve ;
+    docs:mentions term:deployment,
+        term:replica ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.llm.user-guides.data-parallel-attention" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/llm/user-guides/data-parallel-attention.md> ;
+    dcterms:title "Data parallel attention" .
+
+topic:serve.llm.user-guides.deployment-initialization a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/llm/user-guides/deployment-initialization" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:deployment,
+        term:replica,
+        term:runtime-env,
+        term:task ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.llm.user-guides.deployment-initialization" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/llm/user-guides/deployment-initialization.md> ;
+    dcterms:title "Deployment Initialization" .
+
+topic:serve.llm.user-guides.direct-streaming a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/llm/user-guides/direct-streaming" ;
+    docs:hasSubject subject:serve ;
+    docs:mentions term:deployment,
+        term:ingress-deployment,
+        term:replica ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.llm.user-guides.direct-streaming" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/llm/user-guides/direct-streaming.md> ;
+    dcterms:title "Direct streaming" .
+
+topic:serve.llm.user-guides.fractional-gpu a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/llm/user-guides/fractional-gpu" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:deployment,
+        term:placement-group,
+        term:replica,
+        term:runtime-env,
+        term:worker ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.llm.user-guides.fractional-gpu" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/llm/user-guides/fractional-gpu.md> ;
+    dcterms:title "Fractional GPU serving" .
+
+topic:serve.llm.user-guides.index a docs:SectionTopic ;
+    docs:canonicalPath "/en/latest/serve/llm/user-guides/index" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:deployment,
+        term:placement-group,
+        term:replica ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.llm.user-guides.index" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/llm/user-guides/index.md> ;
+    dcterms:title "User guides" .
+
+topic:serve.llm.user-guides.kv-cache-offloading a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/llm/user-guides/kv-cache-offloading" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:deployment,
+        term:runtime-env ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.llm.user-guides.kv-cache-offloading" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/llm/user-guides/kv-cache-offloading.md> ;
+    dcterms:title "KV cache offloading" .
+
+topic:serve.llm.user-guides.multi-lora a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/llm/user-guides/multi-lora" ;
+    docs:hasSubject subject:core,
+        subject:serve,
+        subject:train,
+        subject:tune ;
+    docs:mentions term:checkpoint,
+        term:deployment,
+        term:replica,
+        term:task ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.llm.user-guides.multi-lora" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/llm/user-guides/multi-lora.md> ;
+    dcterms:title "Multi-LoRA deployment" .
+
+topic:serve.llm.user-guides.observability a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/llm/user-guides/observability" ;
+    docs:hasSubject subject:serve ;
+    docs:mentions term:deployment,
+        term:replica ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.llm.user-guides.observability" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/llm/user-guides/observability.md> ;
+    dcterms:title "Observability and monitoring" .
+
+topic:serve.llm.user-guides.prefill-decode a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/llm/user-guides/prefill-decode" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:deployment,
+        term:worker ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.llm.user-guides.prefill-decode" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/llm/user-guides/prefill-decode.md> ;
+    dcterms:title "Prefill/decode disaggregation" .
+
+topic:serve.llm.user-guides.prefix-aware-routing a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/llm/user-guides/prefix-aware-routing" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:actor,
+        term:replica ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.llm.user-guides.prefix-aware-routing" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/llm/user-guides/prefix-aware-routing.md> ;
+    dcterms:title "Prefix-aware routing" .
+
+topic:serve.llm.user-guides.sglang a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/llm/user-guides/sglang" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:deployment,
+        term:placement-group,
+        term:replica,
+        term:worker ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.llm.user-guides.sglang" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/llm/user-guides/sglang.md> ;
+    dcterms:title "SGLang integration" .
+
+topic:serve.llm.user-guides.vllm-compatibility a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/llm/user-guides/vllm-compatibility" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:deployment,
+        term:task ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.llm.user-guides.vllm-compatibility" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/llm/user-guides/vllm-compatibility.md> ;
+    dcterms:title "vLLM compatibility" .
+
+topic:serve.model-multiplexing a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/model-multiplexing" ;
+    docs:hasSubject subject:serve ;
+    docs:mentions term:deployment,
+        term:replica,
+        term:serve-handle ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.model-multiplexing" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/model-multiplexing.md> ;
+    dcterms:title "Model Multiplexing" .
+
+topic:serve.model-registries a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/serve/model-registries" ;
+    docs:hasSubject subject:serve ;
+    docs:mentions term:deployment ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.model-registries" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/model-registries.md> ;
+    dcterms:title "Model Registry Integration" .
+
+topic:serve.model_composition a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/serve/model_composition" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:actor,
+        term:deployment,
+        term:object-ref,
+        term:replica,
+        term:serve-handle,
+        term:task ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.model_composition" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/model_composition.md> ;
+    dcterms:title "Deploy Compositions of Models" .
+
+topic:serve.monitoring a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/monitoring" ;
+    docs:hasSubject subject:core,
+        subject:data,
+        subject:serve ;
+    docs:mentions term:actor,
+        term:datasource,
+        term:deployment,
+        term:driver,
+        term:namespace,
+        term:object-ref,
+        term:replica,
+        term:runtime-env,
+        term:serve-handle,
+        term:task,
+        term:worker ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.monitoring" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/monitoring.md> ;
+    dcterms:title "Monitor Your Application" .
+
+topic:serve.multi-app a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/multi-app" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:deployment,
+        term:ingress-deployment,
+        term:replica,
+        term:runtime-env,
+        term:worker ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.multi-app" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/multi-app.md> ;
+    dcterms:title "Deploy Multiple Applications" .
+
+topic:serve.production-guide.best-practices a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/production-guide/best-practices" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:actor,
+        term:deployment,
+        term:replica,
+        term:runtime-env,
+        term:serve-handle,
+        term:worker ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.production-guide.best-practices" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/production-guide/best-practices.md> ;
+    dcterms:title "Best practices in production" .
+
+topic:serve.production-guide.config a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/production-guide/config" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:actor,
+        term:deployment,
+        term:head-node,
+        term:replica,
+        term:runtime-env ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.production-guide.config" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/production-guide/config.md> ;
+    dcterms:title "Serve Config Files" .
+
+topic:serve.production-guide.docker a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/production-guide/docker" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:actor,
+        term:deployment,
+        term:runtime-env,
+        term:worker ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.production-guide.docker" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/production-guide/docker.md> ;
+    dcterms:title "Custom Docker Images" .
+
+topic:serve.production-guide.fault-tolerance a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/production-guide/fault-tolerance" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:actor,
+        term:deployment,
+        term:head-node,
+        term:namespace,
+        term:replica,
+        term:worker ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.production-guide.fault-tolerance" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/production-guide/fault-tolerance.md> ;
+    dcterms:title "Add End-to-End Fault Tolerance" .
+
+topic:serve.production-guide.handling-dependencies a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/production-guide/handling-dependencies" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:actor,
+        term:deployment,
+        term:driver,
+        term:runtime-env ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.production-guide.handling-dependencies" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/production-guide/handling-dependencies.md> ;
+    dcterms:title "Handle Dependencies" .
+
+topic:serve.production-guide.index a docs:SectionTopic ;
+    docs:canonicalPath "/en/latest/serve/production-guide/index" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:deployment,
+        term:runtime-env ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.production-guide.index" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/production-guide/index.md> ;
+    dcterms:title "Production Guide" .
+
+topic:serve.production-guide.kubernetes a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/production-guide/kubernetes" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:deployment,
+        term:head-node,
+        term:replica,
+        term:runtime-env,
+        term:worker ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.production-guide.kubernetes" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/production-guide/kubernetes.md> ;
+    dcterms:title "Deploy on Kubernetes" .
+
+topic:serve.resource-allocation a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/resource-allocation" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:actor,
+        term:deployment,
+        term:replica,
+        term:runtime-env,
+        term:task ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.resource-allocation" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/resource-allocation.md> ;
+    dcterms:title "Resource Allocation" .
+
+topic:serve.tutorials.aws-neuron-core-inference a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/tutorials/aws-neuron-core-inference" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:actor,
+        term:deployment,
+        term:replica ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.tutorials.aws-neuron-core-inference" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/tutorials/aws-neuron-core-inference.md> ;
+    dcterms:title "Aws Neuron Core Inference" .
+
+topic:serve.tutorials.aws-neuron-core-inference-stable-diffusion a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/tutorials/aws-neuron-core-inference-stable-diffusion" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:actor,
+        term:deployment,
+        term:replica,
+        term:worker ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.tutorials.aws-neuron-core-inference-stable-diffusion" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/tutorials/aws-neuron-core-inference-stable-diffusion.md> ;
+    dcterms:title "Aws Neuron Core Inference Stable Diffusion" .
+
+topic:serve.tutorials.batch a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/tutorials/batch" ;
+    docs:hasSubject subject:core,
+        subject:data,
+        subject:serve ;
+    docs:mentions term:batch-inference,
+        term:dataset,
+        term:deployment,
+        term:serve-handle,
+        term:task ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.tutorials.batch" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/tutorials/batch.md> ;
+    dcterms:title "Batch" .
+
+topic:serve.tutorials.gradio-integration a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/tutorials/gradio-integration" ;
+    docs:hasSubject subject:serve ;
+    docs:mentions term:deployment,
+        term:replica ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.tutorials.gradio-integration" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/tutorials/gradio-integration.md> ;
+    dcterms:title "Gradio Integration" .
+
+topic:serve.tutorials.intel-gaudi-inference a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/tutorials/intel-gaudi-inference" ;
+    docs:hasSubject subject:core,
+        subject:serve,
+        subject:train,
+        subject:tune ;
+    docs:mentions term:actor,
+        term:checkpoint,
+        term:deployment,
+        term:driver,
+        term:namespace,
+        term:replica,
+        term:task,
+        term:worker ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.tutorials.intel-gaudi-inference" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/tutorials/intel-gaudi-inference.md> ;
+    dcterms:title "Intel Gaudi Inference" .
+
+topic:serve.tutorials.java a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/tutorials/java" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:deployment,
+        term:replica,
+        term:task ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.tutorials.java" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/tutorials/java.md> ;
+    dcterms:title "Java" .
+
+topic:serve.tutorials.object-detection a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/tutorials/object-detection" ;
+    docs:hasSubject subject:serve ;
+    docs:mentions term:deployment,
+        term:replica ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.tutorials.object-detection" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/tutorials/object-detection.md> ;
+    dcterms:title "Object Detection" .
+
+topic:serve.tutorials.serve-deepseek a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/tutorials/serve-deepseek" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:deployment,
+        term:object-store,
+        term:runtime-env,
+        term:task,
+        term:worker ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.tutorials.serve-deepseek" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/tutorials/serve-deepseek.md> ;
+    dcterms:title "Serve Deepseek" .
+
+topic:serve.tutorials.serve-ml-models a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/tutorials/serve-ml-models" ;
+    docs:hasSubject subject:data,
+        subject:serve ;
+    docs:mentions term:dataset,
+        term:deployment ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.tutorials.serve-ml-models" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/tutorials/serve-ml-models.md> ;
+    dcterms:title "Serve Ml Models" .
+
+topic:serve.tutorials.stable-diffusion a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/tutorials/stable-diffusion" ;
+    docs:hasSubject subject:serve ;
+    docs:mentions term:deployment,
+        term:replica ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.tutorials.stable-diffusion" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/tutorials/stable-diffusion.md> ;
+    dcterms:title "Stable Diffusion" .
+
+topic:serve.tutorials.streaming a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/tutorials/streaming" ;
+    docs:hasSubject subject:serve ;
+    docs:mentions term:deployment ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.tutorials.streaming" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/tutorials/streaming.md> ;
+    dcterms:title "Streaming" .
+
+topic:serve.tutorials.text-classification a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/tutorials/text-classification" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:deployment,
+        term:replica,
+        term:task ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.tutorials.text-classification" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/tutorials/text-classification.md> ;
+    dcterms:title "Text Classification" .
+
+topic:serve.tutorials.triton-server-integration a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/serve/tutorials/triton-server-integration" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:deployment,
+        term:replica,
+        term:worker ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.tutorials.triton-server-integration" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/tutorials/triton-server-integration.md> ;
+    dcterms:title "Triton Server Integration" .
+
+topic:serve.tutorials.video-analysis.README a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/serve/tutorials/video-analysis/README" ;
+    docs:hasSubject subject:core,
+        subject:serve ;
+    docs:mentions term:deployment,
+        term:driver,
+        term:ingress-deployment,
+        term:namespace,
+        term:object-store,
+        term:replica,
+        term:runtime-env,
+        term:serve-handle,
+        term:task,
+        term:worker ;
+    docs:partOf topic:serve ;
+    docs:topicId "serve.tutorials.video-analysis.README" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/tutorials/video-analysis/README.md> ;
+    dcterms:title "Readme" .
+
+topic:train.common.torch-configure-run a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/train/common/torch-configure-run" ;
+    docs:hasSubject subject:core,
+        subject:train,
+        subject:tune ;
+    docs:mentions term:checkpoint,
+        term:scaling-config,
+        term:trainer,
+        term:training-function,
+        term:worker ;
+    docs:topicId "train.common.torch-configure-run" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/train/common/torch-configure-run.rst> ;
+    dcterms:title "Configure scale and GPUs" .
+
+topic:train.common.torch-configure-train_func a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/train/common/torch-configure-train_func" ;
+    docs:hasSubject subject:core,
+        subject:data,
+        subject:train ;
+    docs:mentions term:dataset,
+        term:trainer,
+        term:training-function,
+        term:worker ;
+    docs:topicId "train.common.torch-configure-train_func" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/train/common/torch-configure-train_func.rst> ;
+    dcterms:title "Torch Configure Train Func" .
+
+topic:train.deepspeed a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/train/deepspeed" ;
+    docs:hasSubject subject:core,
+        subject:data,
+        subject:train,
+        subject:tune ;
+    docs:mentions term:checkpoint,
+        term:dataset,
+        term:scaling-config,
+        term:trainer,
+        term:training-function,
+        term:worker ;
+    docs:topicId "train.deepspeed" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/train/deepspeed.rst> ;
+    dcterms:title "Get Started with DeepSpeed" .
+
+topic:train.distributed-tensorflow-keras a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/train/distributed-tensorflow-keras" ;
+    docs:hasSubject subject:core,
+        subject:data,
+        subject:train,
+        subject:tune ;
+    docs:mentions term:checkpoint,
+        term:dataset,
+        term:scaling-config,
+        term:trainer,
+        term:training-function,
+        term:worker ;
+    docs:topicId "train.distributed-tensorflow-keras" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/train/distributed-tensorflow-keras.rst> ;
+    dcterms:title "Get Started with Distributed Training using TensorFlow/Keras" .
+
+topic:train.getting-started-jax a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/train/getting-started-jax" ;
+    docs:hasSubject subject:core,
+        subject:train,
+        subject:tune ;
+    docs:mentions term:checkpoint,
+        term:scaling-config,
+        term:task,
+        term:trainer,
+        term:training-function,
+        term:worker ;
+    docs:topicId "train.getting-started-jax" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/train/getting-started-jax.rst> ;
+    dcterms:title "Get Started with Distributed Training using JAX" .
+
+topic:train.getting-started-lightgbm a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/train/getting-started-lightgbm" ;
+    docs:hasSubject subject:core,
+        subject:data,
+        subject:train,
+        subject:tune ;
+    docs:mentions term:checkpoint,
+        term:dataset,
+        term:scaling-config,
+        term:task,
+        term:trainer,
+        term:training-function,
+        term:worker ;
+    docs:topicId "train.getting-started-lightgbm" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/train/getting-started-lightgbm.rst> ;
+    dcterms:title "Get Started with Distributed Training using LightGBM" .
+
+topic:train.getting-started-pytorch a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/train/getting-started-pytorch" ;
+    docs:hasSubject subject:core,
+        subject:data,
+        subject:train,
+        subject:tune ;
+    docs:mentions term:checkpoint,
+        term:dataset,
+        term:scaling-config,
+        term:task,
+        term:trainer,
+        term:training-function,
+        term:worker ;
+    docs:topicId "train.getting-started-pytorch" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/train/getting-started-pytorch.rst> ;
+    dcterms:title "Get Started with Distributed Training using PyTorch" .
+
+topic:train.getting-started-pytorch-lightning a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/train/getting-started-pytorch-lightning" ;
+    docs:hasSubject subject:core,
+        subject:data,
+        subject:train,
+        subject:tune ;
+    docs:mentions term:checkpoint,
+        term:dataset,
+        term:head-node,
+        term:scaling-config,
+        term:task,
+        term:trainer,
+        term:training-function,
+        term:worker ;
+    docs:topicId "train.getting-started-pytorch-lightning" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/train/getting-started-pytorch-lightning.rst> ;
+    dcterms:title "Get Started with Distributed Training using PyTorch Lightning" .
+
+topic:train.getting-started-transformers a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/train/getting-started-transformers" ;
+    docs:hasSubject subject:core,
+        subject:data,
+        subject:train,
+        subject:tune ;
+    docs:mentions term:checkpoint,
+        term:dataset,
+        term:scaling-config,
+        term:task,
+        term:trainer,
+        term:training-function,
+        term:worker ;
+    docs:topicId "train.getting-started-transformers" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/train/getting-started-transformers.rst> ;
+    dcterms:title "Get Started with Distributed Training using Hugging Face Transformers" .
+
+topic:train.getting-started-xgboost a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/train/getting-started-xgboost" ;
+    docs:hasSubject subject:core,
+        subject:data,
+        subject:train,
+        subject:tune ;
+    docs:mentions term:checkpoint,
+        term:dataset,
+        term:scaling-config,
+        term:task,
+        term:trainer,
+        term:training-function,
+        term:worker ;
+    docs:topicId "train.getting-started-xgboost" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/train/getting-started-xgboost.rst> ;
+    dcterms:title "Get Started with Distributed Training using XGBoost" .
+
+topic:train.horovod a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/train/horovod" ;
+    docs:hasSubject subject:train ;
+    docs:mentions term:scaling-config,
+        term:trainer,
+        term:training-function ;
+    docs:topicId "train.horovod" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/train/horovod.rst> ;
+    dcterms:title "Get Started with Distributed Training using Horovod" .
+
+topic:train.huggingface-accelerate a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/train/huggingface-accelerate" ;
+    docs:hasSubject subject:core,
+        subject:train ;
+    docs:mentions term:scaling-config,
+        term:trainer,
+        term:training-function,
+        term:worker ;
+    docs:topicId "train.huggingface-accelerate" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/train/huggingface-accelerate.rst> ;
+    dcterms:title "Get Started with Distributed Training using Hugging Face Accelerate" .
+
+topic:train.more-frameworks a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/train/more-frameworks" ;
+    docs:hasSubject subject:train ;
+    docs:topicId "train.more-frameworks" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/train/more-frameworks.rst> ;
+    dcterms:title "More Frameworks" .
+
+topic:train.overview a docs:SectionTopic ;
+    docs:canonicalPath "/en/latest/train/overview" ;
+    docs:hasSubject subject:core,
+        subject:data,
+        subject:train ;
+    docs:mentions term:dataset,
+        term:scaling-config,
+        term:trainer,
+        term:training-function,
+        term:worker ;
+    docs:topicId "train.overview" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/train/overview.rst> ;
+    dcterms:title "Ray Train Overview" .
+
+topic:train.train a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/train/train" ;
+    docs:hasSubject subject:core,
+        subject:data,
+        subject:train ;
+    docs:mentions term:dataset,
+        term:task ;
+    docs:topicId "train.train" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/train/train.rst> ;
+    dcterms:title "Ray Train: Scalable Model Training" .
+
+topic:train.user-guides._collate_utils a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/train/user-guides/_collate_utils" ;
+    docs:hasSubject subject:train ;
+    docs:partOf topic:train.user-guides ;
+    docs:topicId "train.user-guides._collate_utils" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/train/user-guides/_collate_utils.rst> ;
+    dcterms:title "Collate Utilities" .
+
+topic:train.user-guides.asynchronous-validation a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/train/user-guides/asynchronous-validation" ;
+    docs:hasSubject subject:core,
+        subject:data,
+        subject:serve,
+        subject:train,
+        subject:tune ;
+    docs:mentions term:actor,
+        term:batch-inference,
+        term:checkpoint,
+        term:dataset,
+        term:task,
+        term:trainer,
+        term:training-function,
+        term:worker ;
+    docs:partOf topic:train.user-guides ;
+    docs:topicId "train.user-guides.asynchronous-validation" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/train/user-guides/asynchronous-validation.rst> ;
+    dcterms:title "Validating checkpoints asynchronously" .
+
+topic:train.user-guides.checkpoints a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/train/user-guides/checkpoints" ;
+    docs:hasSubject subject:core,
+        subject:train,
+        subject:tune ;
+    docs:mentions term:checkpoint,
+        term:trainer,
+        term:training-function,
+        term:worker ;
+    docs:partOf topic:train.user-guides ;
+    docs:topicId "train.user-guides.checkpoints" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/train/user-guides/checkpoints.rst> ;
+    dcterms:title "Saving and Loading Checkpoints" .
+
+topic:train.user-guides.data-loading-preprocessing a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/train/user-guides/data-loading-preprocessing" ;
+    docs:hasSubject subject:core,
+        subject:data,
+        subject:train,
+        subject:tune ;
+    docs:mentions term:actor,
+        term:checkpoint,
+        term:dataset,
+        term:driver,
+        term:object-store,
+        term:scaling-config,
+        term:task,
+        term:trainer,
+        term:training-function,
+        term:worker ;
+    docs:partOf topic:train.user-guides ;
+    docs:topicId "train.user-guides.data-loading-preprocessing" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/train/user-guides/data-loading-preprocessing.rst> ;
+    dcterms:title "Data Loading and Preprocessing" .
+
+topic:train.user-guides.elastic-training a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/train/user-guides/elastic-training" ;
+    docs:hasSubject subject:core,
+        subject:serve,
+        subject:train ;
+    docs:mentions term:replica,
+        term:scaling-config,
+        term:trainer,
+        term:training-function,
+        term:worker ;
+    docs:partOf topic:train.user-guides ;
+    docs:topicId "train.user-guides.elastic-training" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/train/user-guides/elastic-training.rst> ;
+    dcterms:title "Elastic training" .
+
+topic:train.user-guides.experiment-tracking a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/train/user-guides/experiment-tracking" ;
+    docs:hasSubject subject:core,
+        subject:train ;
+    docs:mentions term:head-node,
+        term:runtime-env,
+        term:scaling-config,
+        term:trainer,
+        term:training-function,
+        term:worker ;
+    docs:partOf topic:train.user-guides ;
+    docs:topicId "train.user-guides.experiment-tracking" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/train/user-guides/experiment-tracking.rst> ;
+    dcterms:title "Experiment Tracking" .
+
+topic:train.user-guides.fault-tolerance a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/train/user-guides/fault-tolerance" ;
+    docs:hasSubject subject:core,
+        subject:train,
+        subject:tune ;
+    docs:mentions term:checkpoint,
+        term:driver,
+        term:head-node,
+        term:trainer,
+        term:training-function,
+        term:worker ;
+    docs:partOf topic:train.user-guides ;
+    docs:topicId "train.user-guides.fault-tolerance" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/train/user-guides/fault-tolerance.rst> ;
+    dcterms:title "Handling Failures and Node Preemption" .
+
+topic:train.user-guides.hyperparameter-optimization a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/train/user-guides/hyperparameter-optimization" ;
+    docs:hasSubject subject:core,
+        subject:train,
+        subject:tune ;
+    docs:mentions term:actor,
+        term:checkpoint,
+        term:driver,
+        term:head-node,
+        term:scaling-config,
+        term:search-algorithm,
+        term:trainable,
+        term:trainer,
+        term:trial,
+        term:worker ;
+    docs:partOf topic:train.user-guides ;
+    docs:topicId "train.user-guides.hyperparameter-optimization" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/train/user-guides/hyperparameter-optimization.rst> ;
+    dcterms:title "Hyperparameter Tuning with Ray Tune" .
+
+topic:train.user-guides.local_mode a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/train/user-guides/local_mode" ;
+    docs:hasSubject subject:core,
+        subject:data,
+        subject:train,
+        subject:tune ;
+    docs:mentions term:actor,
+        term:checkpoint,
+        term:dataset,
+        term:scaling-config,
+        term:trainer,
+        term:training-function,
+        term:worker ;
+    docs:partOf topic:train.user-guides ;
+    docs:topicId "train.user-guides.local_mode" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/train/user-guides/local_mode.rst> ;
+    dcterms:title "Local Mode" .
+
+topic:train.user-guides.monitor-your-application a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/train/user-guides/monitor-your-application" ;
+    docs:hasSubject subject:core,
+        subject:train,
+        subject:tune ;
+    docs:mentions term:checkpoint,
+        term:worker ;
+    docs:partOf topic:train.user-guides ;
+    docs:topicId "train.user-guides.monitor-your-application" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/train/user-guides/monitor-your-application.rst> ;
+    dcterms:title "Ray Train Metrics" .
+
+topic:train.user-guides.monitoring-logging a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/train/user-guides/monitoring-logging" ;
+    docs:hasSubject subject:core,
+        subject:train,
+        subject:tune ;
+    docs:mentions term:checkpoint,
+        term:driver,
+        term:trainer,
+        term:training-function,
+        term:trial,
+        term:worker ;
+    docs:partOf topic:train.user-guides ;
+    docs:topicId "train.user-guides.monitoring-logging" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/train/user-guides/monitoring-logging.rst> ;
+    dcterms:title "Monitoring and Logging Metrics" .
+
+topic:train.user-guides.persistent-storage a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/train/user-guides/persistent-storage" ;
+    docs:hasSubject subject:core,
+        subject:data,
+        subject:serve,
+        subject:train,
+        subject:tune ;
+    docs:mentions term:batch-inference,
+        term:checkpoint,
+        term:head-node,
+        term:runtime-env,
+        term:scaling-config,
+        term:task,
+        term:trainer,
+        term:trial,
+        term:worker ;
+    docs:partOf topic:train.user-guides ;
+    docs:topicId "train.user-guides.persistent-storage" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/train/user-guides/persistent-storage.rst> ;
+    dcterms:title "Configuring Persistent Storage" .
+
+topic:train.user-guides.reproducibility a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/train/user-guides/reproducibility" ;
+    docs:hasSubject subject:data,
+        subject:train,
+        subject:tune ;
+    docs:mentions term:dataset,
+        term:trainable,
+        term:trainer,
+        term:training-function ;
+    docs:partOf topic:train.user-guides ;
+    docs:topicId "train.user-guides.reproducibility" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/train/user-guides/reproducibility.rst> ;
+    dcterms:title "Reproducibility" .
+
+topic:train.user-guides.results a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/train/user-guides/results" ;
+    docs:hasSubject subject:core,
+        subject:data,
+        subject:serve,
+        subject:train,
+        subject:tune ;
+    docs:mentions term:batch-inference,
+        term:checkpoint,
+        term:task,
+        term:trainer,
+        term:training-function,
+        term:worker ;
+    docs:partOf topic:train.user-guides ;
+    docs:topicId "train.user-guides.results" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/train/user-guides/results.rst> ;
+    dcterms:title "Inspecting Training Results" .
+
+topic:train.user-guides.using-accelerators a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/train/user-guides/using-accelerators" ;
+    docs:hasSubject subject:core,
+        subject:train ;
+    docs:mentions term:actor,
+        term:runtime-env,
+        term:scaling-config,
+        term:trainer,
+        term:training-function,
+        term:worker ;
+    docs:partOf topic:train.user-guides ;
+    docs:topicId "train.user-guides.using-accelerators" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/train/user-guides/using-accelerators.rst> ;
+    dcterms:title "Configuring Scale and Accelerators" .
+
+topic:tune.faq a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/tune/faq" ;
+    docs:hasSubject subject:core,
+        subject:data,
+        subject:train,
+        subject:tune ;
+    docs:mentions term:actor,
+        term:checkpoint,
+        term:dataset,
+        term:driver,
+        term:object-store,
+        term:placement-group,
+        term:search-algorithm,
+        term:search-space,
+        term:task,
+        term:trainable,
+        term:training-function,
+        term:trial,
+        term:tune-scheduler,
+        term:worker ;
+    docs:partOf topic:tune ;
+    docs:topicId "tune.faq" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/tune/faq.rst> ;
+    dcterms:title "Ray Tune FAQ" .
+
+topic:tune.getting-started a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/tune/getting-started" ;
+    docs:hasSubject subject:core,
+        subject:train,
+        subject:tune ;
+    docs:mentions term:actor,
+        term:search-algorithm,
+        term:search-space,
+        term:training-function,
+        term:trial,
+        term:tune-scheduler ;
+    docs:partOf topic:tune ;
+    docs:topicId "tune.getting-started" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/tune/getting-started.rst> ;
+    dcterms:title "Getting Started with Ray Tune" .
+
+topic:tune.key-concepts a docs:ConceptTopic ;
+    docs:canonicalPath "/en/latest/tune/key-concepts" ;
+    docs:hasSubject subject:core,
+        subject:train,
+        subject:tune ;
+    docs:mentions term:checkpoint,
+        term:search-algorithm,
+        term:search-space,
+        term:task,
+        term:trainable,
+        term:trial,
+        term:tune-scheduler ;
+    docs:partOf topic:tune ;
+    docs:topicId "tune.key-concepts" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/tune/key-concepts.rst> ;
+    dcterms:title "Key Concepts of Ray Tune" .
+
+topic:tune.tutorials.overview a docs:SectionTopic ;
+    docs:canonicalPath "/en/latest/tune/tutorials/overview" ;
+    docs:hasSubject subject:tune ;
+    docs:mentions term:trial ;
+    docs:partOf topic:tune ;
+    docs:topicId "tune.tutorials.overview" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/tune/tutorials/overview.rst> ;
+    dcterms:title "User Guides" .
+
+topic:tune.tutorials.tune-distributed a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/tune/tutorials/tune-distributed" ;
+    docs:hasSubject subject:core,
+        subject:train,
+        subject:tune ;
+    docs:mentions term:actor,
+        term:checkpoint,
+        term:head-node,
+        term:trainable,
+        term:trial,
+        term:worker ;
+    docs:partOf topic:tune ;
+    docs:topicId "tune.tutorials.tune-distributed" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/tune/tutorials/tune-distributed.rst> ;
+    dcterms:title "Running Distributed Experiments with Ray Tune" .
+
+topic:tune.tutorials.tune-fault-tolerance a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/tune/tutorials/tune-fault-tolerance" ;
+    docs:hasSubject subject:core,
+        subject:data,
+        subject:train,
+        subject:tune ;
+    docs:mentions term:checkpoint,
+        term:dataset,
+        term:driver,
+        term:head-node,
+        term:object-store,
+        term:search-algorithm,
+        term:trainable,
+        term:trial ;
+    docs:partOf topic:tune ;
+    docs:topicId "tune.tutorials.tune-fault-tolerance" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/tune/tutorials/tune-fault-tolerance.rst> ;
+    dcterms:title "How to Enable Fault Tolerance in Ray Tune" .
+
+topic:tune.tutorials.tune-lifecycle a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/tune/tutorials/tune-lifecycle" ;
+    docs:hasSubject subject:core,
+        subject:train,
+        subject:tune ;
+    docs:mentions term:actor,
+        term:checkpoint,
+        term:driver,
+        term:trainable,
+        term:training-function,
+        term:trial,
+        term:tune-scheduler,
+        term:worker ;
+    docs:partOf topic:tune ;
+    docs:topicId "tune.tutorials.tune-lifecycle" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/tune/tutorials/tune-lifecycle.rst> ;
+    dcterms:title "How does Tune work?" .
+
+topic:tune.tutorials.tune-metrics a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/tune/tutorials/tune-metrics" ;
+    docs:hasSubject subject:core,
+        subject:data,
+        subject:train,
+        subject:tune ;
+    docs:mentions term:checkpoint,
+        term:dataset,
+        term:trainable,
+        term:trial,
+        term:worker ;
+    docs:partOf topic:tune ;
+    docs:topicId "tune.tutorials.tune-metrics" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/tune/tutorials/tune-metrics.rst> ;
+    dcterms:title "A Guide To Callbacks & Metrics in Tune" .
+
+topic:tune.tutorials.tune-output a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/tune/tutorials/tune-output" ;
+    docs:hasSubject subject:core,
+        subject:tune ;
+    docs:mentions term:actor,
+        term:head-node,
+        term:trainable,
+        term:trial,
+        term:worker ;
+    docs:partOf topic:tune ;
+    docs:topicId "tune.tutorials.tune-output" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/tune/tutorials/tune-output.rst> ;
+    dcterms:title "Logging and Outputs in Tune" .
+
+topic:tune.tutorials.tune-resources a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/tune/tutorials/tune-resources" ;
+    docs:hasSubject subject:core,
+        subject:tune ;
+    docs:mentions term:placement-group,
+        term:trainable,
+        term:trial,
+        term:worker ;
+    docs:partOf topic:tune ;
+    docs:topicId "tune.tutorials.tune-resources" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/tune/tutorials/tune-resources.rst> ;
+    dcterms:title "A Guide To Parallelism and Resources for Ray Tune" .
+
+topic:tune.tutorials.tune-run a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/tune/tutorials/tune-run" ;
+    docs:hasSubject subject:core,
+        subject:train,
+        subject:tune ;
+    docs:mentions term:checkpoint,
+        term:task,
+        term:training-function,
+        term:trial,
+        term:worker ;
+    docs:partOf topic:tune ;
+    docs:topicId "tune.tutorials.tune-run" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/tune/tutorials/tune-run.rst> ;
+    dcterms:title "Running Basic Tune Experiments" .
+
+topic:tune.tutorials.tune-scalability a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/tune/tutorials/tune-scalability" ;
+    docs:hasSubject subject:core,
+        subject:train,
+        subject:tune ;
+    docs:mentions term:checkpoint,
+        term:driver,
+        term:trainable,
+        term:training-function,
+        term:trial ;
+    docs:partOf topic:tune ;
+    docs:topicId "tune.tutorials.tune-scalability" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/tune/tutorials/tune-scalability.rst> ;
+    dcterms:title "Scalability and Overhead Benchmarks for Ray Tune" .
+
+topic:tune.tutorials.tune-search-spaces a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/tune/tutorials/tune-search-spaces" ;
+    docs:hasSubject subject:tune ;
+    docs:mentions term:search-space,
+        term:trainable,
+        term:trial ;
+    docs:partOf topic:tune ;
+    docs:topicId "tune.tutorials.tune-search-spaces" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/tune/tutorials/tune-search-spaces.rst> ;
+    dcterms:title "Working with Tune Search Spaces" .
+
+topic:tune.tutorials.tune-stopping a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/tune/tutorials/tune-stopping" ;
+    docs:hasSubject subject:core,
+        subject:train,
+        subject:tune ;
+    docs:mentions term:task,
+        term:trainable,
+        term:training-function,
+        term:trial ;
+    docs:partOf topic:tune ;
+    docs:topicId "tune.tutorials.tune-stopping" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/tune/tutorials/tune-stopping.rst> ;
+    dcterms:title "How to Define Stopping Criteria for a Ray Tune Experiment" .
+
+topic:tune.tutorials.tune-storage a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/tune/tutorials/tune-storage" ;
+    docs:hasSubject subject:core,
+        subject:data,
+        subject:serve,
+        subject:train,
+        subject:tune ;
+    docs:mentions term:batch-inference,
+        term:checkpoint,
+        term:head-node,
+        term:task,
+        term:trainable,
+        term:trial ;
+    docs:partOf topic:tune ;
+    docs:topicId "tune.tutorials.tune-storage" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/tune/tutorials/tune-storage.rst> ;
+    dcterms:title "How to Configure Persistent Storage in Ray Tune" .
+
+topic:tune.tutorials.tune-trial-checkpoints a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/tune/tutorials/tune-trial-checkpoints" ;
+    docs:hasSubject subject:core,
+        subject:data,
+        subject:serve,
+        subject:train,
+        subject:tune ;
+    docs:mentions term:batch-inference,
+        term:checkpoint,
+        term:driver,
+        term:head-node,
+        term:search-algorithm,
+        term:task,
+        term:trainable,
+        term:trial,
+        term:tune-scheduler ;
+    docs:partOf topic:tune ;
+    docs:topicId "tune.tutorials.tune-trial-checkpoints" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/tune/tutorials/tune-trial-checkpoints.rst> ;
+    dcterms:title "How to Save and Load Trial Checkpoints" .
+
+topic:tune.tutorials.tune_get_data_in_and_out a docs:TaskTopic ;
+    docs:canonicalPath "/en/latest/tune/tutorials/tune_get_data_in_and_out" ;
+    docs:hasSubject subject:core,
+        subject:data,
+        subject:train,
+        subject:tune ;
+    docs:mentions term:checkpoint,
+        term:dataset,
+        term:object-store,
+        term:search-space,
+        term:trainable,
+        term:trial,
+        term:worker ;
+    docs:partOf topic:tune ;
+    docs:topicId "tune.tutorials.tune_get_data_in_and_out" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/tune/tutorials/tune_get_data_in_and_out.md> ;
+    dcterms:title "Getting Data in and out of Tune" .
+
+docs:GlossaryEntry a owl:Class ;
+    rdfs:label "Glossary Entry" ;
+    rdfs:comment "Topic defining exactly one term in the controlled vocabulary." ;
+    rdfs:subClassOf docs:DocumentationTopic .
+
+term:datasource a docs:Term ;
+    skos:prefLabel "datasource" .
+
+topic:ray-overview a docs:SectionTopic ;
+    docs:canonicalPath "/en/latest/ray-overview/" ;
+    docs:hasSubject subject:core,
+        subject:data,
+        subject:serve ;
+    docs:mentions term:batch-inference,
+        term:head-node,
+        term:task,
+        term:worker ;
+    docs:topicId "ray-overview" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-overview/index.md> ;
+    dcterms:title "Overview" .
+
+subject:scheme a skos:ConceptScheme ;
+    skos:prefLabel "docs_bot subject taxonomy" .
+
+term:search-space a docs:Term ;
+    skos:prefLabel "search space" .
+
+term:tune-scheduler a docs:Term ;
+    skos:prefLabel "tune scheduler" .
+
+docs:Subject a owl:Class ;
+    rdfs:label "Subject" ;
+    rdfs:comment "Taxonomy subject used to classify topics." ;
+    rdfs:subClassOf skos:Concept .
+
+term:compiled-graph a docs:Term ;
+    skos:prefLabel "compiled graph" .
+
+term:ingress-deployment a docs:Term ;
+    skos:prefLabel "ingress deployment" .
+
+term:search-algorithm a docs:Term ;
+    skos:prefLabel "search algorithm" .
+
+term:namespace a docs:Term ;
+    skos:prefLabel "namespace" .
+
+docs:DocumentationTopic a owl:Class ;
+    rdfs:label "Documentation Topic" ;
+    rdfs:comment "A discrete, componentized unit of documentation content." ;
+    rdfs:subClassOf cco:ont00000958 .
+
+term:serve-handle a docs:Term ;
+    skos:prefLabel "serve handle" .
+
+topic:train.user-guides a docs:SectionTopic ;
+    docs:canonicalPath "/en/latest/train/user-guides" ;
+    docs:hasSubject subject:train ;
+    docs:topicId "train.user-guides" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/train/user-guides.rst> ;
+    dcterms:title "Ray Train User Guides" .
+
+term:trainable a docs:Term ;
+    skos:prefLabel "trainable" .
+
+topic:tune a docs:SectionTopic ;
+    docs:canonicalPath "/en/latest/tune/" ;
+    docs:hasSubject subject:core,
+        subject:tune ;
+    docs:mentions term:actor,
+        term:search-algorithm,
+        term:search-space,
+        term:tune-scheduler ;
+    docs:topicId "tune" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/tune/index.rst> ;
+    dcterms:title "Ray Tune: Hyperparameter Tuning" .
+
+topic:ray-observability a docs:SectionTopic ;
+    docs:canonicalPath "/en/latest/ray-observability/" ;
+    docs:hasSubject subject:observability ;
+    docs:topicId "ray-observability" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/ray-observability/index.md> ;
+    dcterms:title "Monitoring and Debugging" .
+
+subject:observability a docs:Subject ;
+    skos:inScheme subject:scheme ;
+    skos:prefLabel "observability" .
+
+term:scaling-config a docs:Term ;
+    skos:prefLabel "scaling config" .
+
+term:batch-inference a docs:Term ;
+    skos:prefLabel "batch inference" .
+
+term:placement-group a docs:Term ;
+    skos:prefLabel "placement group" .
+
+term:trial a docs:Term ;
+    skos:prefLabel "trial" .
+
+docs:SectionTopic a owl:Class ;
+    rdfs:label "Section Topic" ;
+    rdfs:comment "Container/landing topic grouping child topics." ;
+    rdfs:subClassOf docs:DocumentationTopic .
+
+docs:Term a owl:Class ;
+    rdfs:label "Term" ;
+    rdfs:comment "A term in the product's controlled vocabulary, defined by a GlossaryEntry." ;
+    rdfs:subClassOf skos:Concept .
+
+term:trainer a docs:Term ;
+    skos:prefLabel "trainer" .
+
+term:object-ref a docs:Term ;
+    skos:prefLabel "object ref" .
+
+term:training-function a docs:Term ;
+    skos:prefLabel "training function" .
+
+term:checkpoint a docs:Term ;
+    skos:prefLabel "checkpoint" .
+
+term:runtime-env a docs:Term ;
+    skos:prefLabel "runtime env" .
+
+term:head-node a docs:Term ;
+    skos:prefLabel "head node" .
+
+term:object-store a docs:Term ;
+    skos:prefLabel "object store" .
+
+subject:tune a docs:Subject ;
+    skos:inScheme subject:scheme ;
+    skos:prefLabel "tune" .
+
+term:dataset a docs:Term ;
+    skos:prefLabel "dataset" .
+
+term:driver a docs:Term ;
+    skos:prefLabel "driver" .
+
+subject:train a docs:Subject ;
+    skos:inScheme subject:scheme ;
+    skos:prefLabel "train" .
+
+subject:data a docs:Subject ;
+    skos:inScheme subject:scheme ;
+    skos:prefLabel "data" .
+
+term:replica a docs:Term ;
+    skos:prefLabel "replica" .
+
+topic:serve a docs:SectionTopic ;
+    docs:canonicalPath "/en/latest/serve/" ;
+    docs:hasSubject subject:serve ;
+    docs:mentions term:deployment,
+        term:replica ;
+    docs:topicId "serve" ;
+    dcterms:source <https://github.com/ray-project/ray/blob/master/doc/source/serve/index.md> ;
+    dcterms:title "Ray Serve: Scalable and Programmable Serving" .
+
+term:deployment a docs:Term ;
+    skos:prefLabel "deployment" .
+
+subject:serve a docs:Subject ;
+    skos:inScheme subject:scheme ;
+    skos:prefLabel "serve" .
+
+docs:TaskTopic a owl:Class ;
+    rdfs:label "Task Topic" ;
+    rdfs:comment "Step-by-step procedure (DITA task)." ;
+    rdfs:subClassOf docs:DocumentationTopic .
+
+docs:ConceptTopic a owl:Class ;
+    rdfs:label "Concept Topic" ;
+    rdfs:comment "Explains what something is and why it matters (DITA concept)." ;
+    rdfs:subClassOf docs:DocumentationTopic .
+
+term:actor a docs:Term ;
+    skos:prefLabel "actor" .
+
+term:worker a docs:Term ;
+    skos:prefLabel "worker" .
+
+term:task a docs:Term ;
+    skos:prefLabel "task" .
+
+subject:core a docs:Subject ;
+    skos:inScheme subject:scheme ;
+    skos:prefLabel "core" .
+

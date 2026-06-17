@@ -1,0 +1,231 @@
+---
+id: train.train
+title: 'Ray Train: Scalable Model Training'
+topic_type: concept
+description: ''
+subjects:
+- train
+- data
+- core
+mentions:
+- dataset
+- task
+references: []
+canonical_path: /en/latest/train/train
+source: https://github.com/ray-project/ray/blob/master/doc/source/train/train.rst
+license: Apache 2.0, The Ray Authors
+---
+
+Ray Train: Scalable Model Training
+
+    Overview <overview>
+    PyTorch Guide <getting-started-pytorch>
+    PyTorch Lightning Guide <getting-started-pytorch-lightning>
+    Hugging Face Transformers Guide <getting-started-transformers>
+    XGBoost Guide <getting-started-xgboost>
+    JAX Guide <getting-started-jax>
+    more-frameworks
+    User Guides <user-guides>
+    Tutorials </_collections/train/tutorials/README>
+    Examples <examples>
+    Benchmarks <benchmarks>
+    api/api
+
+    .. div:: sd-w-50
+
+        .. raw:: html
+           :file: images/logo.svg
+
+Ray Train is a scalable machine learning library for distributed training and fine-tuning.
+
+Ray Train allows you to scale model training code from a single machine to a cluster of machines in the cloud, and abstracts away the complexities of distributed computing.
+Whether you have large models or large datasets, Ray Train is the simplest solution for distributed training.
+
+Ray Train provides support for many frameworks:
+
+   :widths: 1 1
+   :header-rows: 1
+
+   * - PyTorch Ecosystem
+     - More Frameworks
+   * - PyTorch
+     - TensorFlow
+   * - PyTorch Lightning
+     - Keras
+   * - Hugging Face Transformers
+     - Horovod
+   * - Hugging Face Accelerate
+     - XGBoost
+   * - DeepSpeed
+     - LightGBM
+
+Install Ray Train
+
+To install Ray Train, run:
+
+    $ pip install -U "ray[train]"
+
+To learn more about installing Ray and its libraries, see
+Installing Ray.
+
+Get started
+
+    :gutter: 1
+    :class-container: container pb-6
+
+    .. grid-item-card::
+
+        **Overview**
+        ^^^
+
+        Understand the key concepts for distributed training with Ray Train.
+
+        +++
+        .. button-ref:: train-overview
+            :color: primary
+            :outline:
+            :expand:
+
+            Learn the basics
+
+    .. grid-item-card::
+
+        **PyTorch**
+        ^^^
+
+        Get started on distributed model training with Ray Train and PyTorch.
+
+        +++
+        .. button-ref:: train-pytorch
+            :color: primary
+            :outline:
+            :expand:
+
+            Try Ray Train with PyTorch
+
+    .. grid-item-card::
+
+        **PyTorch Lightning**
+        ^^^
+
+        Get started on distributed model training with Ray Train and Lightning.
+
+        +++
+        .. button-ref:: train-pytorch-lightning
+            :color: primary
+            :outline:
+            :expand:
+
+            Try Ray Train with Lightning
+
+    .. grid-item-card::
+
+        **Hugging Face Transformers**
+        ^^^
+
+        Get started on distributed model training with Ray Train and Transformers.
+
+        +++
+        .. button-ref:: train-pytorch-transformers
+            :color: primary
+            :outline:
+            :expand:
+
+            Try Ray Train with Transformers
+
+    .. grid-item-card::
+
+        **JAX**
+        ^^^
+
+        Get started on distributed model training with Ray Train and JAX.
+
+        +++
+        .. button-ref:: train-jax
+            :color: primary
+            :outline:
+            :expand:
+
+            Try Ray Train with JAX
+
+Learn more
+
+    :gutter: 1
+    :class-container: container pb-6
+
+    .. grid-item-card::
+
+        **More Frameworks**
+        ^^^
+
+        Don't see your framework? See these guides.
+
+        +++
+        .. button-ref:: train-more-frameworks
+            :color: primary
+            :outline:
+            :expand:
+
+            Try Ray Train with other frameworks
+
+    .. grid-item-card::
+
+        **User Guides**
+        ^^^
+
+        Get how-to instructions for common training tasks with Ray Train.
+
+        +++
+        .. button-ref:: train-user-guides
+            :color: primary
+            :outline:
+            :expand:
+
+            Read how-to guides
+
+    .. grid-item-card::
+
+        **Tutorials**
+        ^^^
+
+        Hands-on tutorials covering ML workload patterns from vision to recommendation systems.
+
+        +++
+        .. button-ref:: /_collections/train/tutorials/README
+            :color: primary
+            :outline:
+            :expand:
+            :ref-type: doc
+
+            Follow tutorials
+
+    .. grid-item-card::
+
+        **Examples**
+        ^^^
+
+        Browse end-to-end code examples for different use cases.
+
+        +++
+        .. button-ref:: examples
+            :color: primary
+            :outline:
+            :expand:
+            :ref-type: doc
+
+            Learn through examples
+
+    .. grid-item-card::
+
+        **API**
+        ^^^
+
+        Consult the API Reference for full descriptions of the Ray Train API.
+
+        +++
+        .. button-ref:: train-api
+            :color: primary
+            :outline:
+            :expand:
+
+            Read the API Reference

@@ -1,0 +1,10 @@
+# Docs pipeline (scrape → enrich → graph → publish)
+rdflib>=7.0
+PyYAML>=6.0
+python-frontmatter>=1.1
+markdown>=3.5
+requests>=2.31
+python-dotenv>=1.0
+
+# DocsBot agent (docsbot.py)
+anthropic>=0.40
