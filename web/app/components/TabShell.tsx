@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 import HowItWorks from "./HowItWorks";
+import DocsTab from "./DocsTab";
+import TryItTab from "./TryItTab";
+import type { SectionTree } from "@/lib/pageTree";
 
 const TABS = [
   { id: "how", label: "How it works" },
@@ -11,7 +14,7 @@ const TABS = [
 
 type TabId = (typeof TABS)[number]["id"];
 
-export default function TabShell() {
+export default function TabShell({ tree }: { tree: SectionTree[] }) {
   const [active, setActive] = useState<TabId>("how");
 
   return (
@@ -57,8 +60,8 @@ export default function TabShell() {
       {/* Content */}
       <main className="flex-1 overflow-auto">
         {active === "how" && <HowItWorks />}
-        {active === "docs" && <ComingSoon label="Docs" description="Browse the Ray documentation corpus as a structured wiki — with a Confluence-style page tree." />}
-        {active === "try" && <ComingSoon label="Try it" description="Query the knowledge graph live through Claude." />}
+        {active === "docs" && <DocsTab tree={tree} />}
+        {active === "try" && <TryItTab />}
       </main>
     </div>
   );
